@@ -30,8 +30,10 @@ find_package(rclcpp REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(px4_msgs REQUIRED)
 find_package(ACADO REQUIRED )
-
+find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 add_library(mpc_solver
   externals/qpoases/SRC/Bounds.cpp
@@ -87,14 +89,14 @@ ament_package()
 
 
 
-add_executable(code_gen_drone src/code_gen_drone.cpp)
+add_executable(code_gen_drone src/code_generation/code_gen_drone.cpp)
 target_link_libraries(code_gen_drone  ${ACADO_ENV_SHARED_LIBRARIES} mpc_solver)
 ament_target_dependencies(code_gen_drone  )
 set_target_properties(code_gen_drone PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} )
 
-add_executable(mpc_acado_node src/mpc_acado.cpp)
+add_executable(mpc_acado_node src/mpc_acado_node.cpp)
 target_link_libraries(mpc_acado_node mpc_solver ${ACADO_ENV_SHARED_LIBRARIES} yaml-cpp)
-ament_target_dependencies(mpc_acado_node rclcpp std_msgs geometry_msgs nav_msgs    )
+ament_target_dependencies(mpc_acado_node rclcpp std_msgs geometry_msgs nav_msgs px4_msgs  )
 
 install(TARGETS
   # getting_started
