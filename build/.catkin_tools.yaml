@@ -1,0 +1,6 @@
+devel_space: /home/hakim/Desktop/Phd/ros2_ws/src/mpc_acado/devel
+install: false
+install_space: /home/hakim/Desktop/Phd/ros2_ws/src/mpc_acado/install
+profile: default
+source_space: /home/hakim/Desktop/Phd/ros2_ws/src/mpc_acado/src
+workspace: /home/hakim/Desktop/Phd/ros2_ws/src/mpc_acado
