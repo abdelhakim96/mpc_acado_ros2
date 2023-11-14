@@ -1,98 +1,12 @@
-#define _USE_MATH_DEFINES
-#include <memory>
-#include <iostream>
-#include <time.h>
-#include <unistd.h>
-#include <fstream>
-//#include "yaml-cpp/yaml.h"
 
-#include "acado_common.h"
-#include "acado_auxiliary_functions.h"
-#include <thread>
-#include <Eigen/Dense>
-
-#include "geometry_msgs/msg/pose_array.hpp"
-#include "rclcpp/rclcpp.hpp"
-#include <chrono>
-#include <functional>
-#include <memory>
-#include <string>
-
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
-
-
-/* Some convenient definitions. */
-#define NX          ACADO_NX  /* Number of differential state variables.  */
-#define NXA         ACADO_NXA /* Number of algebraic variables. */
-#define NU          ACADO_NU  /* Number of control inputs. */
-#define NOD         ACADO_NOD  /* Number of online data values. */
-#define NY          ACADO_NY  /* Number of measurements/references on nodes 0..N - 1. */
-#define NYN         ACADO_NYN /* Number of measurements/references on node N. */
-#define N           ACADO_N   /* Number of intervals in the horizon. */
-#define VERBOSE   0
-#define pi M_PI
-
-using namespace std;
-using namespace Eigen;
-using std::placeholders::_1;
-
-//extern "C"{
-//__thread ACADOvariables acadoVariables;
-//__thread ACADOworkspace acadoWorkspace;
-//}
-
-
-
-#include "mpc_acado.cpp"
-// odom topic /fmu/out/vehicle_odometry type:   px4_msgs/msg/VehicleOdometry
-
-// control topic /fmu/in/vehicle_rates_setpoint  type:  px4_msgs/msg/VehicleRatesSetpoint
-// TODO: check if veclocity is in body frame if not transform
-
-#include <px4_msgs/msg/vehicle_odometry.hpp>
-#include <px4_msgs/msg/vehicle_rates_setpoint.hpp>
-#include <px4_msgs/msg/offboard_control_mode.hpp>
-#include <px4_msgs/msg/trajectory_setpoint.hpp>
-#include <px4_msgs/msg/vehicle_command.hpp>
-#include <px4_msgs/msg/vehicle_control_mode.hpp>
-#include <rclcpp/rclcpp.hpp>
-#include <stdint.h>
-#include "tf2/transform_datatypes.h"
-#include "tf2/utils.h"
-#include <chrono>
-#include <iostream>
-
-using namespace std::chrono;
-using namespace std::chrono_literals;
-using namespace px4_msgs::msg;
-
-using std::placeholders::_1;
-
-//std::unique_ptr<Mpc> mpc_ptr;
-rclcpp::Time start_time;
-
-
-
-
-Eigen::MatrixXd desired_state;
-Eigen::MatrixXd current_state;
-Eigen::MatrixXd desired_control;
-
-//Eigen::MatrixXd desired_state = Eigen::MatrixXd::Zero(N+1, 9);
-
-
-double roll, pitch, yaw;
 
 
 
 //int N =9;
 
 
-
-
-
-
+#include "mpc_acado.cpp"
+#include "mpc_acado_node.h"
 
 
 class ModelPredictiveControl : public rclcpp::Node
@@ -104,6 +18,7 @@ public:
         //mpc_ptr = std::make_unique<Mpc>();
 
         //int N = mpc_ptr->getN();
+        const int N = 9;
         current_state = Eigen::MatrixXd::Zero(9, 1);
         desired_state = Eigen::MatrixXd::Zero(N+1, 9);
 
@@ -122,7 +37,7 @@ public:
 
 
      position_subscriber_ = this->create_subscription<px4_msgs::msg::VehicleOdometry>(
-            "/fmu/out/vehicle_odometry", qos, std::bind(&ModelPredictiveControl::position_cb, this, _1));
+            "/fmu/out/vehicle_odometry", qos, std::bind(&ModelPredictiveControl::position_cb, this, std::placeholders::_1));
 
 
 

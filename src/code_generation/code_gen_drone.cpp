@@ -90,12 +90,12 @@ int main( )
 	ocp.subjectTo(-0.1 <= p <= 0.1);
 	ocp.subjectTo(-0.1 <= q <= 0.1);
     ocp.subjectTo(-0.5 <= r <= 0.5);
-
+  
 
 	
 	// Export the code:
 	OCPexport mpc( ocp );
-
+   
 	mpc.set( HESSIAN_APPROXIMATION,       GAUSS_NEWTON    );
 	mpc.set( DISCRETIZATION_TYPE,         MULTIPLE_SHOOTING );
 	mpc.set( INTEGRATOR_TYPE,             INT_RK4         );
@@ -109,7 +109,12 @@ int main( )
 	mpc.set( GENERATE_MATLAB_INTERFACE,   NO             );
 	mpc.set( GENERATE_SIMULINK_INTERFACE, NO             );
 	
+    
 
+    // Optionally set custom module name:
+    mpc.set(CG_MODULE_NAME, "nmpc");
+    mpc.set(CG_MODULE_PREFIX, "NMPC");
+    
 	if (mpc.exportCode( path + "/model/codegen" ) != SUCCESSFUL_RETURN)
 	//  if (mpc.exportCode( "acado_threading" ) != SUCCESSFUL_RETURN)
   		exit( EXIT_FAILURE );

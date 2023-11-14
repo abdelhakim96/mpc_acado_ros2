@@ -34,6 +34,8 @@ find_package(px4_msgs REQUIRED)
 find_package(ACADO REQUIRED )
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
+#find_package(Boost REQUIRED COMPONENTS system)
+
 
 add_library(mpc_solver
   externals/qpoases/SRC/Bounds.cpp
@@ -46,10 +48,10 @@ add_library(mpc_solver
   externals/qpoases/SRC/SubjectTo.cpp
   externals/qpoases/SRC/Utils.cpp
   externals/qpoases/SRC/EXTRAS/SolutionAnalysis.cpp
-  model/codegen/acado_qpoases_interface.cpp
-  model/codegen/acado_integrator.c
-  model/codegen/acado_solver.c
-  model/codegen/acado_auxiliary_functions.c)
+  model/codegen/nmpc_qpoases_interface.cpp
+  model/codegen/nmpc_integrator.c
+  model/codegen/nmpc_solver.c
+  model/codegen/nmpc_auxiliary_functions.c)
 
 
 target_include_directories(mpc_solver PUBLIC
