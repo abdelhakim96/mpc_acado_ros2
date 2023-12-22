@@ -7,23 +7,21 @@
 
 #include "mpc_acado.cpp"
 #include "mpc_acado_node.h"
+#include "mpc_acado.h"
 
+float ii=0.0;
 
 class ModelPredictiveControl : public rclcpp::Node
 {
+
+      
 public:
-  ModelPredictiveControl() : Node("model_predictive_control")
+  NMPC* nmpc_ptr_;
+  //ModelPredictiveControl() : Node("model_predictive_control")
+  ModelPredictiveControl(NMPC* nmpc_ptr) : Node("model_predictive_control"), nmpc_ptr_(nmpc_ptr)
   {   
         
-        //mpc_ptr = std::make_unique<Mpc>();
-
-        //int N = mpc_ptr->getN();
-        const int N = 9;
-        current_state = Eigen::MatrixXd::Zero(9, 1);
-        desired_state = Eigen::MatrixXd::Zero(N+1, 9);
-
-
-      desired_control = Eigen::MatrixXd::Zero(N+1, 4);
+       
 
 
     rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
@@ -61,7 +59,7 @@ public:
 
       //publish_trajectory_setpoint(); //for setpoint position control *PID*
 
-      publish_rates_setpoint();
+      publish_control();
             
             //
       // stop the counter after reaching 11
@@ -74,6 +72,7 @@ public:
 
   void arm();
   void disarm();
+  rclcpp::Publisher<VehicleRatesSetpoint>::SharedPtr vehicle_rates_setpoint_publisher_;
 
 private:
 
@@ -88,7 +87,6 @@ private:
   rclcpp::Publisher<OffboardControlMode>::SharedPtr mpc_mode_publisher_;
   rclcpp::Publisher<TrajectorySetpoint>::SharedPtr trajectory_setpoint_publisher_;
   rclcpp::Publisher<VehicleCommand>::SharedPtr vehicle_command_publisher_;
-    rclcpp::Publisher<VehicleRatesSetpoint>::SharedPtr vehicle_rates_setpoint_publisher_;
 
 
 
@@ -99,7 +97,7 @@ private:
 
   void publish_control_mode();
   void publish_trajectory_setpoint();
-  void publish_rates_setpoint();
+  void publish_control();
   void publish_vehicle_command(uint16_t command, float param1 = 0.0, float param2 = 0.0);
 
 };
@@ -110,16 +108,6 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
       
       //RCLCPP_INFO(this->get_logger(), "position received send");
 
-
-  
-    current_state(0,0) = msg->position[0];
-    current_state(1,0) = msg->position[1];
-    current_state(2,0) =  -msg->position[2];
-    current_state(3,0) = msg->velocity[0];
-    current_state(4,0) = msg->velocity[1];
-    current_state(5,0) =  msg->velocity[2];
-
-    
     tf2::Quaternion q(
       msg->q[0],
       msg->q[1],
@@ -130,10 +118,18 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
     m.getRPY(pitch, roll, yaw);
 
     tf2::Matrix3x3(q).getRPY(roll, pitch, yaw);
-    current_state(6,0) = yaw;
-    current_state(7,0) = pitch;
-    current_state(8,0) = roll;
 
+
+
+  //current_states = { msg->position[0], 
+  //                    msg->position[0],
+  //                    -msg->position[2],
+  //                    msg->velocity[0],
+  //                   msg->velocity[1],
+  //                    msg->velocity[2],
+  //                       roll,
+  //                        pitch,
+  //                        yaw};
 
 
 }
@@ -175,83 +171,6 @@ void ModelPredictiveControl::publish_control_mode()
   mpc_mode_publisher_->publish(msg);
 }
 
-/**
- * @brief Publish a trajectory setpoint
- *        For this example, it sends a trajectory setpoint to make the
- *        vehicle hover at 5 meters with a yaw angle of 180 degrees.
- */
-void ModelPredictiveControl::publish_rates_setpoint()
-{    
-    
-     
-    
-     for (int row = 0; row < desired_state.rows(); ++row) {
-          desired_state(row,2) = 1.0;
-      }
-
-
-     for (int row = 0; row < desired_control.rows(); ++row) {
-          desired_control(row,0) = 0.5;
-      }
-
-
-
-
-  //VehicleRatesSetpoint msg{};
-    VehicleRatesSetpoint msg{};
-    
-
-
-    //Eigen::MatrixXd desired_state = Eigen::MatrixXd::Zero(N+1, 9);
-
-   // Eigen::MatrixXd desired_state1 = desired_state.transpose();
-
-    Eigen::MatrixXd desired_state1 =   desired_state.transpose() ;
-
-    Eigen::MatrixXd desired_control1 =   desired_control.transpose() ;
-
-
-    rclcpp::Clock clock;
-    rclcpp::Time solve_start = clock.now();
-    
-    
-    //auto success = mpc_ptr->solve(current_state, desired_state1, desired_control1);
-
-
-   // cout << "Current Z position node level: " << current_state(2,0) << endl;
-    //cout << "Current X position node level: " << current_state(0,0) << endl;
-
-    //cout << "mpc solve success" << endl;
-  
-
-
-    //auto traj = mpc_ptr->getPredictedTrajectory();
-
-    rclcpp::Time solve_end = clock.now();
-    //auto solve_time = solve_end - solve_start;
-    //std::cout << "MPC solution time: " << solve_time.seconds() << " seconds" << std::endl;
-    //auto control_cmd = mpc_ptr->getControlAction();
-
-    //cout << "got cmd" << endl;
-    //cout << "C1: Thrust:" << control_cmd[0] << endl;
-    //cout << "C2: Roll_rate:" << control_cmd[1] << endl;
-    //cout << "C3: Pitch_rate:" << control_cmd[2] << endl;
-    //cout << "C4: Yaw_rate:" << control_cmd[3] << endl;
-
-  //msg.timestamp = timestamp_.load();
-  //msg.thrust_body[0] = 0.0;
-  //msg.thrust_body[1] = 0.0;
-    //std::cout << "Thrust to drone " << control_cmd[0]/30 << std::endl;
-      
-  //msg.thrust_body[2] = -control_cmd[0]/30.0;
-  //msg.roll = control_cmd[1];
-  //msg.pitch = control_cmd[2];
-  //msg.yaw = control_cmd[3];
-
-  vehicle_rates_setpoint_publisher_->publish(msg);
-
-}
-
 
 void ModelPredictiveControl::publish_trajectory_setpoint()
 {
@@ -288,27 +207,186 @@ void ModelPredictiveControl::publish_vehicle_command(uint16_t command, float par
   vehicle_command_publisher_->publish(msg);
 }
 
+
+
+//void ModelPredictiveControl::publish_rpyFz()
+//void ModelPredictiveControl::publish_rpyFz(struct command_struct& commandstruct)
+
+void ModelPredictiveControl::publish_control()
+{
+  auto control_cmd = nmpc_ptr_->nmpc_cmd_struct; // Accessing nmpc_ptr_
+      
+  VehicleRatesSetpoint msg{};
+  
+  //msg.timestamp = timestamp_.load();
+  msg.thrust_body[0] = 0.0;
+  msg.thrust_body[1] = 0.0;      
+  msg.thrust_body[2] = control_cmd.control_thrust_vec[2];
+  msg.roll = control_cmd.control_attitude_vec[0];
+  msg.pitch = control_cmd.control_attitude_vec[1];
+  msg.yaw = control_cmd.control_attitude_vec[2];
+   
+  ModelPredictiveControl::vehicle_rates_setpoint_publisher_->publish(msg);
+
+
+  //cout <<"C01: Thrust1:" << msg.thrust_body[0] << endl;
+   //cout << "C12: Thrust2:" << msg.thrust_body[1] << endl;
+
+  cout << "C1: Thrust:" << msg.thrust_body[2] << endl;
+  
+  //cout << "C2: p: " << msg.roll << endl;
+  //cout << "C3: q: " << msg.pitch << endl;
+  //cout << "C4: r: " << msg.yaw << endl;
+
+    //nmpc_cmd_obj_pub.publish(obj_val_msg);       replace this!!
+}
+
+
 int main(int argc, char *argv[])
 {
 
 
+  ref_trajectory = { 2.0,     // px
+                      2.0,    // py
+                      2.0,    // pz
+                      0.0,    // u
+                      0.0,    // v
+                      0.0,    // w
+                      0.0,    // phi
+                      0.0,    // theta
+                      0.0     // psi
+                      };
+  nmpc_struct.U_ref.resize(NMPC_NU);
+  nmpc_struct.W.resize(NMPC_NY);
 
-    //mpc_ptr.reset(new Mpc());
-        
+  cout << NMPC_NX ;
+
+  nmpc_struct.W(0) = 10;
+  nmpc_struct.W(1) = 10;
+  nmpc_struct.W(2) = 10;
+  nmpc_struct.W(3) = 1.0;
+  nmpc_struct.W(4) = 1.0;
+  nmpc_struct.W(5) = 1.0;
+  nmpc_struct.W(6) = 0.5;
+  nmpc_struct.W(7) = 0.5;
+  nmpc_struct.W(8) = 0.5;
+
+  nmpc_struct.W(9) = 1.0;
+  nmpc_struct.W(10) = 0.1;
+  nmpc_struct.W(11) = 0.1;
+  nmpc_struct.W(12) = 0.1;
+  //nmpc_struct.W(13) = 0.1;
+
+
+  nmpc_struct.min_Fz_scale = 0.1;
+  nmpc_struct.max_Fz_scale = 10.0;
+  nmpc_struct.W_Wn_factor = 0.5;
+
+  nmpc_struct.U_ref(0) = 0.04;
+  nmpc_struct.U_ref(1) = 0.01;
+  nmpc_struct.U_ref(2) = 0.02;
+  nmpc_struct.U_ref(3) = 0.03;
+
+
   std::cout << "MPC node..." << std::endl;
-
+  
   std::cout << "Starting model predictive control node..." << std::endl;
+   
 
 
   setvbuf(stdout, NULL, _IONBF, BUFSIZ);
   
   rclcpp::init(argc, argv);
+  
 
-  rclcpp::spin(std::make_shared<ModelPredictiveControl>());
+    dist_Fx.data.resize(NMPC_N + 1);
+    dist_Fy.data.resize(NMPC_N + 1);
+    dist_Fz.data.resize(NMPC_N + 1);
+    dist_Fx.data_zeros.resize(NMPC_N + 1, 0.0);
+    dist_Fy.data_zeros.resize(NMPC_N + 1, 0.0);
+    dist_Fz.data_zeros.resize(NMPC_N + 1, 0.0);
+
+    dist_Fx.data = dist_Fx.data_zeros;
+    dist_Fy.data = dist_Fy.data_zeros;
+    dist_Fz.data = dist_Fz.data_zeros;
+
+    online_data.distFx = dist_Fx.data;
+    online_data.distFy = dist_Fy.data;
+    online_data.distFz = dist_Fz.data;
+
+  online_data.distFx = {0.0,0.0,0.0};
+  online_data.distFy = {0.0,0.0,0.0};
+  online_data.distFz = {0.0,0.0,0.0};
+
+
+  NMPC* nmpc = new NMPC(nmpc_struct);
+  
+
+  pos_ref = current_states;
+
+  if (!nmpc->return_control_init_value())
+      {  
+
+          nmpc->nmpc_init(pos_ref, nmpc->nmpc_struct);
+
+          //std::cout << "nmpc_struct.verbose\n" << nmpc_struct.verbose;
+
+          //std::cout << "nmpc->return_control_init_value()\n" << nmpc->return_control_init_value();
+          nmpc_struct.verbose = 1;
+
+          if (nmpc_struct.verbose && nmpc->return_control_init_value())
+          {
+              std::cout << "***********************************\n";
+              std::cout << "NMPC: initialized correctly\n";
+              std::cout << "***********************************\n";
+          }
+      }
+
+   // while (rclcpp::ok()) {
+   //      std::cout << "NMPC is running \n";
+         
+
+    ///*
+
+    auto mpc_node = std::make_shared<ModelPredictiveControl>(nmpc);
+
+     while (rclcpp::ok()){ 
+
+     current_states = { 1.0,     // px
+                        0.0,     // py
+                       0.0,   // pz
+                         0.0,    // u
+                         0.0,    // v
+                        0.0,     // w
+                        0.0,     // phi
+                        0.0,     // theta
+                        0.0};    // psi
+
+      ii = ii + 0.01;
+
+         nmpc->nmpc_core(nmpc_struct,
+                      nmpc->nmpc_struct,
+                               nmpc->nmpc_cmd_struct,
+                               ref_trajectory,
+                               online_data,
+                               current_states);
+
+ 
+          rclcpp::spin_some(mpc_node); // Spin only for the current node
+
+  }
+
+  
+   
   rclcpp::shutdown();
 
 
+  
 
-
+ 
+  
+ 
+  //nmpc->publish_rpyFz(nmpc->nmpc_cmd_struct);
+  //delete nmpc; 
   return 0;
-}
+  }

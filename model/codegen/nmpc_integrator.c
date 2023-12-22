@@ -24,6 +24,7 @@ void nmpc_rhs_forw(const real_t* in, real_t* out)
 {
 const real_t* xd = in;
 const real_t* u = in + 126;
+const real_t* od = in + 130;
 /* Vector of auxiliary variables; number of elements: 664. */
 real_t* a = nmpcWorkspace.rhs_aux;
 
@@ -697,9 +698,9 @@ a[663] = (xd[121]*a[453]);
 out[0] = ((((a[0]*a[1])*xd[3])+((((a[2]*a[3])*a[4])-(a[5]*a[6]))*xd[4]))+((((a[7]*a[8])*a[9])+(a[10]*a[11]))*xd[5]));
 out[1] = ((((a[12]*a[13])*xd[3])+((((a[14]*a[15])*a[16])+(a[17]*a[18]))*xd[4]))+((((a[19]*a[20])*a[21])-(a[22]*a[23]))*xd[5]));
 out[2] = (((((real_t)(0.0000000000000000e+00)-a[24])*xd[3])+((a[25]*a[26])*xd[4]))+((a[27]*a[28])*xd[5]));
-out[3] = (((u[3]*xd[4])-(u[2]*xd[5]))+((real_t)(9.8000001907348633e+00)*a[29]));
-out[4] = (((u[1]*xd[5])-(u[3]*xd[3]))-(((real_t)(9.8000001907348633e+00)*a[30])*a[31]));
-out[5] = ((((u[2]*xd[3])-(u[1]*xd[4]))-(((real_t)(9.8000001907348633e+00)*a[32])*a[33]))+((real_t)(8.3333331346511841e-01)*u[0]));
+out[3] = ((((u[3]*xd[4])-(u[2]*xd[5]))+((real_t)(9.8000001907348633e+00)*a[29]))+od[0]);
+out[4] = ((((u[1]*xd[5])-(u[3]*xd[3]))-(((real_t)(9.8000001907348633e+00)*a[30])*a[31]))+od[1]);
+out[5] = (((((u[2]*xd[3])-(u[1]*xd[4]))-(((real_t)(9.8000001907348633e+00)*a[32])*a[33]))+((real_t)(8.3333331346511841e-01)*u[0]))+od[2]);
 out[6] = ((u[1]+((a[34]*a[35])*u[2]))+((a[36]*a[37])*u[3]));
 out[7] = ((a[38]*u[2])-(a[39]*u[3]));
 out[8] = (((a[40]/a[41])*u[2])+((a[42]/a[43])*u[3]));
@@ -950,6 +951,9 @@ nmpcWorkspace.rk_xxx[126] = rk_eta[126];
 nmpcWorkspace.rk_xxx[127] = rk_eta[127];
 nmpcWorkspace.rk_xxx[128] = rk_eta[128];
 nmpcWorkspace.rk_xxx[129] = rk_eta[129];
+nmpcWorkspace.rk_xxx[130] = rk_eta[130];
+nmpcWorkspace.rk_xxx[131] = rk_eta[131];
+nmpcWorkspace.rk_xxx[132] = rk_eta[132];
 
 for (run1 = 0; run1 < 1; ++run1)
 {

@@ -25,7 +25,8 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-#include <mpc_acado_node.h>
+
+#include "mpc_acado.h"
 
 
 /* Some convenient definitions. */
@@ -76,14 +77,35 @@ rclcpp::Time start_time;
 
 
 
-Eigen::MatrixXd desired_state;
-Eigen::MatrixXd current_state;
-Eigen::MatrixXd desired_control;
+//Eigen::MatrixXd desired_state;
+//Eigen::MatrixXd current_state;
+//Eigen::MatrixXd desired_control;
 
 //Eigen::MatrixXd desired_state = Eigen::MatrixXd::Zero(N+1, 9);
 
 
 double roll, pitch, yaw;
+nmpc_struct_ nmpc_struct;
+online_data_struct_ online_data;
+
+
+
+std::vector<double> pos_ref;
+std::vector<double> current_pos_att;
+std::vector<double> point;
+std::vector<double> current_vel_rate;
+std::vector<double> current_states;
+std::vector<double> ref_trajectory; 
+
+
+struct _dist_struct
+{
+    bool predInit;
+    int print_predInit = 1;
+    std::vector<double> data;
+    std::vector<double> data_zeros;
+} dist_Fx, dist_Fy, dist_Fz;
+
 
 
 #endif
