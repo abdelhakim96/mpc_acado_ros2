@@ -82,10 +82,10 @@ int main( )
 	ocp.minimizeLSQ(W, h);
 	ocp.minimizeLSQEndTerm(WN, hN);
 
-	ocp.subjectTo( -10 <= F_zb <= 10 );
-	ocp.subjectTo(-0.1 <=  p <= 0.1);
-	ocp.subjectTo(-0.1 <=  q <= 0.1);
-    ocp.subjectTo(-0.5 <=  r <= 0.5);
+	ocp.subjectTo( -2 * m * g <= F_zb <= m * g * 2 );
+	ocp.subjectTo(-3.0 <=  p <= 3.0);
+	ocp.subjectTo(-3.0 <=  q <= 3.0);
+    ocp.subjectTo(-3.0 <=  r <= 3.0);
   
 
 	
@@ -95,7 +95,7 @@ int main( )
 	mpc.set( HESSIAN_APPROXIMATION,       GAUSS_NEWTON    );
 	mpc.set( DISCRETIZATION_TYPE,         MULTIPLE_SHOOTING );
 	mpc.set( INTEGRATOR_TYPE,             INT_RK4         );
-	mpc.set( NUM_INTEGRATOR_STEPS,        2 * N              );
+	mpc.set( NUM_INTEGRATOR_STEPS,        2 * N );
 
 
 	mpc.set(SPARSE_QP_SOLUTION, CONDENSING);

@@ -9,7 +9,6 @@
 #include "mpc_acado_node.h"
 #include "mpc_acado.h"
 
-float ii=0.0;
 
 class ModelPredictiveControl : public rclcpp::Node
 {
@@ -53,7 +52,6 @@ public:
         // Arm the vehicle
         this->arm();
       }
-      //mpc_ptr.reset(new Mpc());
         
       publish_control_mode();
 
@@ -115,21 +113,53 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
       msg->q[3]);
 
     tf2::Matrix3x3 m(q);
-    m.getRPY(pitch, roll, yaw);
+    //m.getRPY(roll, pitch, yaw);
 
     tf2::Matrix3x3(q).getRPY(roll, pitch, yaw);
 
 
 
-  //current_states = { msg->position[0], 
-  //                    msg->position[0],
-  //                    -msg->position[2],
-  //                    msg->velocity[0],
-  //                   msg->velocity[1],
-  //                    msg->velocity[2],
-  //                       roll,
-  //                        pitch,
-  //                        yaw};
+    std::cout << "x: " << msg->position[0] << "\n";
+    std::cout << "y: " << msg->position[1] << "\n";
+    std::cout << "z: " << msg->position[2] << "\n";
+
+
+    std::cout << "vx: " << msg->velocity[0] << "\n";
+    std::cout << "vy: " << msg->velocity[1] << "\n";
+    std::cout << "vz: " << msg->velocity[2] << "\n";
+
+    std::cout << "Roll: " << roll << "\n";
+    std::cout << "Pitch: " << pitch << "\n";
+    std::cout << "Yaw: " << yaw << "\n";
+
+   // std::cout << "qx: " << msg->q[0] << "\n";
+   // std::cout << "qy: " << msg->q[1] << "\n";
+   // std::cout << "qz: " << msg->q[2] << "\n";
+   // std::cout << "qw: " << msg->q[3] << "\n";
+
+
+
+   // std::cout << "yaw rate: " << msg->angular_velocity[2] << "\n";
+
+
+   // y=x    same in vx
+   // x = -y  same in vy
+   // z = -z   same in vz
+  // roll = pitch
+  // pitch = pitch
+  // yaw = roll-1.5708
+
+
+  current_states = { msg->position[1], 
+                      msg->position[0],
+                      -msg->position[2],
+                      msg->velocity[1],
+                     msg->velocity[0],
+                    -msg->velocity[2],
+                         yaw,    //yaw
+                          pitch,  //pitch
+                          roll-1.5708};   //roll
+
 
 
 }
@@ -175,7 +205,7 @@ void ModelPredictiveControl::publish_control_mode()
 void ModelPredictiveControl::publish_trajectory_setpoint()
 {
   TrajectorySetpoint msg{};
-  msg.position = {0.0, 0.0, -5.0};
+  msg.position = {0.0, 0.0, -3.0};
   msg.yaw = -3.14; // [-PI:PI]
   msg.timestamp = this->get_clock()->now().nanoseconds() / 1000;
   trajectory_setpoint_publisher_->publish(msg);
@@ -221,22 +251,42 @@ void ModelPredictiveControl::publish_control()
   //msg.timestamp = timestamp_.load();
   msg.thrust_body[0] = 0.0;
   msg.thrust_body[1] = 0.0;      
-  msg.thrust_body[2] = control_cmd.control_thrust_vec[2];
+  double scale = 1.2 * 9.81 * 2;
+  
+
+  msg.thrust_body[2] = -control_cmd.control_thrust_vec[2]/scale;   //max thrust =30;
+
+  //msg.thrust_body[2] = -0.71;
+
+  //msg.roll = control_cmd.control_attitude_vec[0];
+  
+  // correct values
+    // roll control = -control_cmd.control_attitude_vec[1]
+  // pitch control = -control_cmd.control_attitude_vec[1]
+ 
   msg.roll = control_cmd.control_attitude_vec[0];
-  msg.pitch = control_cmd.control_attitude_vec[1];
+
+
+  msg.pitch = -control_cmd.control_attitude_vec[1];
   msg.yaw = control_cmd.control_attitude_vec[2];
+
+  //msg.yaw = 0.3;
+
+  //msg.roll = 0.01;
+  //msg.pitch = 0.00;
+  //msg.yaw = 0.0;
    
   ModelPredictiveControl::vehicle_rates_setpoint_publisher_->publish(msg);
 
 
   //cout <<"C01: Thrust1:" << msg.thrust_body[0] << endl;
    //cout << "C12: Thrust2:" << msg.thrust_body[1] << endl;
-
-  cout << "C1: Thrust:" << msg.thrust_body[2] << endl;
+   
+  cout << "C1: Thrust:" << -control_cmd.control_thrust_vec[2]/scale << endl;
   
-  //cout << "C2: p: " << msg.roll << endl;
-  //cout << "C3: q: " << msg.pitch << endl;
-  //cout << "C4: r: " << msg.yaw << endl;
+  cout << "C2: p: " << control_cmd.control_attitude_vec[0] << endl;
+  cout << "C3: q: " << control_cmd.control_attitude_vec[1] << endl;
+  cout << "C4: r: " << control_cmd.control_attitude_vec[2] << endl;
 
     //nmpc_cmd_obj_pub.publish(obj_val_msg);       replace this!!
 }
@@ -261,31 +311,44 @@ int main(int argc, char *argv[])
 
   cout << NMPC_NX ;
 
-  nmpc_struct.W(0) = 10;
-  nmpc_struct.W(1) = 10;
-  nmpc_struct.W(2) = 10;
+  nmpc_struct.W(0) = 10.0;
+  nmpc_struct.W(1) = 10.0;
+  nmpc_struct.W(2) = 10.0;
   nmpc_struct.W(3) = 1.0;
   nmpc_struct.W(4) = 1.0;
   nmpc_struct.W(5) = 1.0;
-  nmpc_struct.W(6) = 0.5;
-  nmpc_struct.W(7) = 0.5;
-  nmpc_struct.W(8) = 0.5;
+  nmpc_struct.W(6) = 30.0;
+  nmpc_struct.W(7) = 30.0;
+  nmpc_struct.W(8) = 30.0;
 
-  nmpc_struct.W(9) = 1.0;
-  nmpc_struct.W(10) = 0.1;
-  nmpc_struct.W(11) = 0.1;
-  nmpc_struct.W(12) = 0.1;
+  nmpc_struct.W(9) = 0.5;
+  nmpc_struct.W(10) = 10.0;
+  nmpc_struct.W(11) = 10.0;
+  nmpc_struct.W(12) = 1000.0;
   //nmpc_struct.W(13) = 0.1;
 
 
-  nmpc_struct.min_Fz_scale = 0.1;
+  nmpc_struct.min_Fz_scale = 0.5;
   nmpc_struct.max_Fz_scale = 10.0;
   nmpc_struct.W_Wn_factor = 0.5;
+  
+  double u_ref = 9.81*1.2*1.43;
+  nmpc_struct.U_ref(0) = u_ref;   //m*g
+  nmpc_struct.U_ref(1) = 0.0;
+  nmpc_struct.U_ref(2) = 0.0;
+  nmpc_struct.U_ref(3) = 0.0;
 
-  nmpc_struct.U_ref(0) = 0.04;
-  nmpc_struct.U_ref(1) = 0.01;
-  nmpc_struct.U_ref(2) = 0.02;
-  nmpc_struct.U_ref(3) = 0.03;
+  
+
+  current_states = { 0.0,     // px
+                        0.0,     // py
+                       0.0,   // pz
+                         0.0,    // u
+                         0.0,    // v
+                        0.0,     // w
+                        0.0,     // phi
+                        0.0,     // theta
+                        0.0};    // psi
 
 
   std::cout << "MPC node..." << std::endl;
@@ -342,27 +405,13 @@ int main(int argc, char *argv[])
           }
       }
 
-   // while (rclcpp::ok()) {
-   //      std::cout << "NMPC is running \n";
-         
 
-    ///*
 
     auto mpc_node = std::make_shared<ModelPredictiveControl>(nmpc);
 
      while (rclcpp::ok()){ 
 
-     current_states = { 1.0,     // px
-                        0.0,     // py
-                       0.0,   // pz
-                         0.0,    // u
-                         0.0,    // v
-                        0.0,     // w
-                        0.0,     // phi
-                        0.0,     // theta
-                        0.0};    // psi
 
-      ii = ii + 0.01;
 
          nmpc->nmpc_core(nmpc_struct,
                       nmpc->nmpc_struct,
@@ -370,10 +419,10 @@ int main(int argc, char *argv[])
                                ref_trajectory,
                                online_data,
                                current_states);
-
+            
  
           rclcpp::spin_some(mpc_node); // Spin only for the current node
-
+        
   }
 
   
@@ -387,6 +436,6 @@ int main(int argc, char *argv[])
   
  
   //nmpc->publish_rpyFz(nmpc->nmpc_cmd_struct);
-  //delete nmpc; 
+  // 
   return 0;
   }
