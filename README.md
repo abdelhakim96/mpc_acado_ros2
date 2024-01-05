@@ -44,6 +44,26 @@ cd ..
 colcon build
 ```
 
+
+# Updating the Drone Model
+
+## Steps:
+
+1. **Update Model:**
+    - Edit `code_gen_drone.cpp` in `~/mpc_acado/src/code_generation`.
+
+2. **Build ROS2 Workspace:**
+    - Run `colcon build` to incorporate changes.
+
+3. **Generate ACADO C-Code:**
+    - Execute `./code_gen_drone` to create C-code in `/mpc_acado/model/codegen`.
+
+4. **Rebuild Workspace:**
+    - Use `colcon build` again for integration.
+
+
+
+
 ## Running the simulation
 
 
@@ -60,7 +80,7 @@ MicroXRCEAgent udp4 -p 8888
 
 In a new terminal Run MPC
 ```
-ros2 run mpc_node........
+ros2 run mpc_acado mpc_acado_node 
 ```
 
 
