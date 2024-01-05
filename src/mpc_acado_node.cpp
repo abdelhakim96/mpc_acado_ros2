@@ -104,7 +104,6 @@ private:
 
 void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::SharedPtr msg) {
       
-      //RCLCPP_INFO(this->get_logger(), "position received send");
 
     tf2::Quaternion q(
       msg->q[0],
@@ -113,57 +112,12 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
       msg->q[3]);
 
 
-      //tf2::Quaternion q_off(
-      //msg->q_offset[0],
-      //msg->q_offset[1],
-      //msg->q_offset[2],
-      //msg->q_offset[3]);
-
     tf2::Matrix3x3 m(q);
-    //tf2::Matrix3x3 m_off(q);
-    //m_off.getRPY(roll_off, pitch_off, yaw_off);
+
 
     tf2::Matrix3x3(q).getRPY(roll, pitch, yaw);
 
-    //tf2::Matrix3x3(q_off).getRPY(roll_off, pitch_off, yaw_off);
 
-
-    //std::cout << "x: " << msg->position[0] << "\n";
-    //std::cout << "y: " << msg->position[1] << "\n";
-    //std::cout << "z: " << msg->position[2] << "\n";
-
-
-
-    
-   // std::cout << "velocity_frame: " << msg->velocity_frame << "\n";
-
-
-
-
-    //std::cout << "Roll: " << roll << "\n";
-    //std::cout << "Pitch: " << pitch << "\n";
-    //std::cout << "Yaw: " << yaw << "\n";
-
-    //std::cout << "Roll offset: " << roll_off << "\n";
-    //std::cout << "Pitch offset: " << pitch_off << "\n";
-    //std::cout << "Yaw offset: " << yaw_off << "\n";
-
-   // std::cout << "qx: " << msg->q[0] << "\n";
-   // std::cout << "qy: " << msg->q[1] << "\n";
-   // std::cout << "qz: " << msg->q[2] << "\n";
-   // std::cout << "qw: " << msg->q[3] << "\n";
-
-
-
-   // std::cout << "yaw rate: " << msg->angular_velocity[2] << "\n";
-
-
-   // y=x    same in vx
-   // x = -y  same in vy
-   // z = -z   same in vz
-  // roll = pitch
-  // pitch = pitch
-  // yaw = roll-1.5708
     double vx     = msg->velocity[1];
     double vy     = msg->velocity[0];
     double vz     = -msg->velocity[2];
@@ -171,13 +125,9 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
     double Theta  = pitch;
     double Psi    = roll-1.570;
 
-    //Phi   = -Phi;>
-    //Theta = -Theta;
-    //Psi   = Psi;
 
     Psi = -Psi;
-    //tf2::Matrix3x3 R_BI;
-    Eigen::Matrix3d R_BI;
+  
 
     Eigen::Matrix3d Rx, Ry, Rz;
 
@@ -193,26 +143,13 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
           sin(Psi), cos(Psi), 0,
           0, 0, 1;
 
-    //Eigen::Matrix3d R = Rz * Ry * Rx;;
 
 
-    Eigen::Matrix3d R = Rz;
-    R_BI << cos(Theta) * cos(Psi), sin(Phi) * sin(Theta) * cos(Psi) - sin(Psi) * cos(Phi), cos(Phi) * sin(Theta) * cos(Psi) + sin(Phi) * sin(Psi),
-            cos(Theta) * sin(Psi), sin(Phi) * sin(Theta) * sin(Psi) + cos(Psi) * cos(Phi), cos(Phi) * sin(Theta) * sin(Psi) - sin(Phi) * cos(Psi),
-            -sin(Theta), sin(Phi) * cos(Theta), cos(Phi) * cos(Theta);
+    //Eigen::Matrix3d R = Rz;
 
-    //Eigen::Matrix3d R_BI_transposed = R_BI.transpose().eval();
+    //Eigen::Matrix3d R = Rx * Ry * Rz;
 
-    Eigen::Matrix3d R_BI_transposed = R_BI;
-
-    //double r_vx = R_BI_transposed(0, 0) * vx + R_BI_transposed(0, 1) * vy + R_BI_transposed(0, 2) * vz;
-    //double r_vy = R_BI_transposed(1, 0) * vx + R_BI_transposed(1, 1) * vy + R_BI_transposed(1, 2) * vz;
-    //double r_vz = R_BI_transposed(2, 0) * vx + R_BI_transposed(2, 1) * vy + R_BI_transposed(2, 2) * vz;
-
-    
-    //double r_vx = cos(Psi) * vx + sin(Psi) * vy ;
-    //double r_vy = -sin(Psi) * vx + cos(Psi) * vy;
-    //double r_vz = vz;
+    Eigen::Matrix3d R = Rz * Ry * Rx;
 
 
 
@@ -225,24 +162,12 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
 
 
 
-    std::cout << "vx: " << vx << "\n";
-    std::cout << "r_vx: " << r_vx << "\n";
+    std::cout << "x: " << msg->position[1] << "\n";
+    std::cout << "y: " << msg->position[0]<< "\n";
+    std::cout << "z: " << -msg->position[2]<< "\n";
+
     std::cout << "Yaw: " << Psi << "\n";
 
-
-
-    //double r_vx = cos(Theta) * cos(Psi) * vx +
-    //              (sin(Phi) * sin(Theta) * cos(Psi) - sin(Psi) * cos(Phi)) * vy +
-    //              (cos(Phi) * sin(Theta) * cos(Psi) + sin(Phi) * sin(Psi)) * vz;
-
-  //  double r_vy = cos(Theta) * sin(Psi) * vx +
-    //              (sin(Phi) * sin(Theta) * sin(Psi) + cos(Psi) * cos(Phi)) * vy +
-    //              (cos(Phi) * sin(Theta) * sin(Psi) - sin(Phi) * cos(Psi)) * vz;
-
-    //double r_vz = -sin(Theta) * vx +
-    //              sin(Phi) * cos(Theta) * vy +
-    //              cos(Phi) * cos(Theta) * vz;
-        
 
     
 
@@ -252,10 +177,9 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
                           r_vx,
                           r_vy,
                           r_vz,
-                         yaw,    //yaw
+                         yaw,    //proll
                           pitch,  //pitch
-                          //roll};   //roll
-                          -Psi};   //roll
+                          -Psi};   //yaw
 
 
 
@@ -336,8 +260,7 @@ void ModelPredictiveControl::publish_vehicle_command(uint16_t command, float par
 
 
 
-//void ModelPredictiveControl::publish_rpyFz()
-//void ModelPredictiveControl::publish_rpyFz(struct command_struct& commandstruct)
+
 
 void ModelPredictiveControl::publish_control()
 {
@@ -345,7 +268,6 @@ void ModelPredictiveControl::publish_control()
       
   VehicleRatesSetpoint msg{};
   
-  //msg.timestamp = timestamp_.load();
   msg.thrust_body[0] = 0.0;
   msg.thrust_body[1] = 0.0;      
   double scale = 1.2 * 9.81 * 2;
@@ -353,14 +275,7 @@ void ModelPredictiveControl::publish_control()
 
   msg.thrust_body[2] = -control_cmd.control_thrust_vec[2]/scale;   //max thrust =30;
 
-  //msg.thrust_body[2] = -0.71;
 
-  //msg.roll = control_cmd.control_attitude_vec[0];
-  
-  // correct values
-    // roll control = -control_cmd.control_attitude_vec[1]
-  // pitch control = -control_cmd.control_attitude_vec[1]
- 
   msg.roll = control_cmd.control_attitude_vec[0];
 
 
@@ -368,27 +283,11 @@ void ModelPredictiveControl::publish_control()
 
   msg.yaw = -control_cmd.control_attitude_vec[2];
 
-  //msg.yaw = 0.00;
-
-  //msg.yaw = 0.05;
-
-  //msg.roll = 0.00;
-  //msg.pitch = 0.00;
-  //msg.yaw = 0.0;
    
   ModelPredictiveControl::vehicle_rates_setpoint_publisher_->publish(msg);
 
 
-  //cout <<"C01: Thrust1:" << msg.thrust_body[0] << endl;
-   //cout << "C12: Thrust2:" << msg.thrust_body[1] << endl;
-   
-  //cout << "C1: Thrust:" << -control_cmd.control_thrust_vec[2]/scale << endl;
-  
-  //cout << "C2: p: " << control_cmd.control_attitude_vec[0] << endl;
-  //cout << "C3: q: " << control_cmd.control_attitude_vec[1] << endl;
-  //cout << "C4: r: " << control_cmd.control_attitude_vec[2] << endl;
 
-    //nmpc_cmd_obj_pub.publish(obj_val_msg);       replace this!!
 }
 
 
@@ -411,8 +310,8 @@ int main(int argc, char *argv[])
 
   cout << NMPC_NX ;
 
-  nmpc_struct.W(0) = 3.0;
-  nmpc_struct.W(1) = 3.0;
+  nmpc_struct.W(0) = 30.0;
+  nmpc_struct.W(1) = 30.0;
   nmpc_struct.W(2) = 10.0;
   nmpc_struct.W(3) = 1.0;
   nmpc_struct.W(4) = 1.0;
@@ -422,9 +321,9 @@ int main(int argc, char *argv[])
   //nmpc_struct.W(8) = 1.0;
   nmpc_struct.W(8) = 2.0;
 
-  nmpc_struct.W(9) = 0.3;
-  nmpc_struct.W(10) = 3.0;
-  nmpc_struct.W(11) = 3.0;
+  nmpc_struct.W(9) = 0.2;
+  nmpc_struct.W(10) = 1.0;
+  nmpc_struct.W(11) = 1.0;
   //nmpc_struct.W(12) = 0.01;
   nmpc_struct.W(12) = 3.0;
 
@@ -493,9 +392,7 @@ int main(int argc, char *argv[])
 
           nmpc->nmpc_init(pos_ref, nmpc->nmpc_struct);
 
-          //std::cout << "nmpc_struct.verbose\n" << nmpc_struct.verbose;
 
-          //std::cout << "nmpc->return_control_init_value()\n" << nmpc->return_control_init_value();
           nmpc_struct.verbose = 1;
 
           if (nmpc_struct.verbose && nmpc->return_control_init_value())
@@ -515,8 +412,8 @@ int main(int argc, char *argv[])
      
      while (rclcpp::ok()){ 
 
-  ref_trajectory = { 0.0,     // px
-                      0.0,    // py
+  ref_trajectory = { 2.0,     // px
+                      2.0,    // py
                       2.0,    // pz
                       0.0,    // u
                       0.0,    // v
@@ -549,7 +446,6 @@ int main(int argc, char *argv[])
  
   
  
-  //nmpc->publish_rpyFz(nmpc->nmpc_cmd_struct);
-  // 
+  
   return 0;
   }
