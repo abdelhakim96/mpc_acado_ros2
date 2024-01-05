@@ -167,8 +167,8 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
     double vx     = msg->velocity[1];
     double vy     = msg->velocity[0];
     double vz     = -msg->velocity[2];
-    double Phi    = 0.0;
-    double Theta  = 0.0;
+    double Phi    = yaw;
+    double Theta  = pitch;
     double Psi    = roll-1.570;
 
     //Phi   = -Phi;>
@@ -193,35 +193,35 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
           sin(Psi), cos(Psi), 0,
           0, 0, 1;
 
-    Eigen::Matrix3d R = Rz ;
+    //Eigen::Matrix3d R = Rz * Ry * Rx;;
 
 
-    //Eigen::Matrix3d R = Rz
+    Eigen::Matrix3d R = Rz;
     R_BI << cos(Theta) * cos(Psi), sin(Phi) * sin(Theta) * cos(Psi) - sin(Psi) * cos(Phi), cos(Phi) * sin(Theta) * cos(Psi) + sin(Phi) * sin(Psi),
             cos(Theta) * sin(Psi), sin(Phi) * sin(Theta) * sin(Psi) + cos(Psi) * cos(Phi), cos(Phi) * sin(Theta) * sin(Psi) - sin(Phi) * cos(Psi),
             -sin(Theta), sin(Phi) * cos(Theta), cos(Phi) * cos(Theta);
 
-    Eigen::Matrix3d R_BI_transposed = R_BI.transpose().eval();
+    //Eigen::Matrix3d R_BI_transposed = R_BI.transpose().eval();
 
-    R_BI_transposed = R_BI;
+    Eigen::Matrix3d R_BI_transposed = R_BI;
 
     //double r_vx = R_BI_transposed(0, 0) * vx + R_BI_transposed(0, 1) * vy + R_BI_transposed(0, 2) * vz;
     //double r_vy = R_BI_transposed(1, 0) * vx + R_BI_transposed(1, 1) * vy + R_BI_transposed(1, 2) * vz;
     //double r_vz = R_BI_transposed(2, 0) * vx + R_BI_transposed(2, 1) * vy + R_BI_transposed(2, 2) * vz;
 
     
-    double r_vx = cos(Psi) * vx - sin(Psi) * vy ;
-    double r_vy = sin(Psi) * vx + cos(Psi) * vy;
-    double r_vz = vz;
+    //double r_vx = cos(Psi) * vx + sin(Psi) * vy ;
+    //double r_vy = -sin(Psi) * vx + cos(Psi) * vy;
+    //double r_vz = vz;
 
 
 
     //
-    //R = R.transpose().eval();
+    R = R.transpose().eval();
     //
-    //double r_vx = R(0, 0) * vx + R(0, 1) * vy + R(0, 2) * vz;
-    //double r_vy = R(1, 0) * vx + R(1, 1) * vy + R(1, 2) * vz;
-    //double r_vz = R(2, 0) * vx + R(2, 1) * vy + R(2, 2) * vz;
+    double r_vx = R(0, 0) * vx + R(0, 1) * vy + R(0, 2) * vz;
+    double r_vy = R(1, 0) * vx + R(1, 1) * vy + R(1, 2) * vz;
+    double r_vz = R(2, 0) * vx + R(2, 1) * vy + R(2, 2) * vz;
 
 
 
@@ -366,11 +366,11 @@ void ModelPredictiveControl::publish_control()
 
   msg.pitch = -control_cmd.control_attitude_vec[1];
 
-  //msg.yaw = control_cmd.control_attitude_vec[2];
+  msg.yaw = -control_cmd.control_attitude_vec[2];
 
   //msg.yaw = 0.00;
 
-  msg.yaw = 0.0;
+  //msg.yaw = 0.05;
 
   //msg.roll = 0.00;
   //msg.pitch = 0.00;
@@ -411,21 +411,22 @@ int main(int argc, char *argv[])
 
   cout << NMPC_NX ;
 
-  nmpc_struct.W(0) = 10.0;
-  nmpc_struct.W(1) = 10.0;
+  nmpc_struct.W(0) = 3.0;
+  nmpc_struct.W(1) = 3.0;
   nmpc_struct.W(2) = 10.0;
   nmpc_struct.W(3) = 1.0;
   nmpc_struct.W(4) = 1.0;
   nmpc_struct.W(5) = 1.0;
   nmpc_struct.W(6) = 30.0;
   nmpc_struct.W(7) = 30.0;
-  nmpc_struct.W(8) = 300.0;
+  //nmpc_struct.W(8) = 1.0;
+  nmpc_struct.W(8) = 2.0;
 
-  nmpc_struct.W(9) = 0.5;
-  nmpc_struct.W(10) = 10.0;
-  nmpc_struct.W(11) = 10.0;
-  nmpc_struct.W(12) = 1000.0;
-  //nmpc_struct.W(13) = 0.1;
+  nmpc_struct.W(9) = 0.3;
+  nmpc_struct.W(10) = 3.0;
+  nmpc_struct.W(11) = 3.0;
+  //nmpc_struct.W(12) = 0.01;
+  nmpc_struct.W(12) = 3.0;
 
 
   nmpc_struct.min_Fz_scale = 0.5;
@@ -514,16 +515,16 @@ int main(int argc, char *argv[])
      
      while (rclcpp::ok()){ 
 
-            ref_trajectory = {
-                1.0 ,  // px (x-coordinate)
-                2.0,  // pz (constant or modified z-coordinate)
-                0.0,  // u
-                0.0,  // v
-                0.0,  // w
-                0.0,  // phi
-                0.0,  // theta
-                0.0   // psi
-            };
+  ref_trajectory = { 0.0,     // px
+                      0.0,    // py
+                      2.0,    // pz
+                      0.0,    // u
+                      0.0,    // v
+                      0.0,    // w
+                      0.0,    // phi
+                      0.0,    // theta
+                      0.4     // psi  -psi
+                      };
             
             t += 0.01;  // Adjust `time_step` according to your simulation's time step
          nmpc->nmpc_core(nmpc_struct,

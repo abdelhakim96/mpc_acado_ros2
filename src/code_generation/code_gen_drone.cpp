@@ -82,7 +82,7 @@ int main( )
 	ocp.minimizeLSQ(W, h);
 	ocp.minimizeLSQEndTerm(WN, hN);
 
-	ocp.subjectTo( -2 * m * g <= F_zb <= m * g * 2 );
+	ocp.subjectTo( -0.3 * m * g <= F_zb <= m * g * 2 );
 	ocp.subjectTo(-3.0 <=  p <= 3.0);
 	ocp.subjectTo(-3.0 <=  q <= 3.0);
     ocp.subjectTo(-3.0 <=  r <= 3.0);
