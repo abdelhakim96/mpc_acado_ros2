@@ -112,25 +112,41 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
       msg->q[2],
       msg->q[3]);
 
+
+      //tf2::Quaternion q_off(
+      //msg->q_offset[0],
+      //msg->q_offset[1],
+      //msg->q_offset[2],
+      //msg->q_offset[3]);
+
     tf2::Matrix3x3 m(q);
-    //m.getRPY(roll, pitch, yaw);
+    //tf2::Matrix3x3 m_off(q);
+    //m_off.getRPY(roll_off, pitch_off, yaw_off);
 
     tf2::Matrix3x3(q).getRPY(roll, pitch, yaw);
 
+    //tf2::Matrix3x3(q_off).getRPY(roll_off, pitch_off, yaw_off);
 
 
-    std::cout << "x: " << msg->position[0] << "\n";
-    std::cout << "y: " << msg->position[1] << "\n";
-    std::cout << "z: " << msg->position[2] << "\n";
+    //std::cout << "x: " << msg->position[0] << "\n";
+    //std::cout << "y: " << msg->position[1] << "\n";
+    //std::cout << "z: " << msg->position[2] << "\n";
 
 
-    std::cout << "vx: " << msg->velocity[0] << "\n";
-    std::cout << "vy: " << msg->velocity[1] << "\n";
-    std::cout << "vz: " << msg->velocity[2] << "\n";
 
-    std::cout << "Roll: " << roll << "\n";
-    std::cout << "Pitch: " << pitch << "\n";
-    std::cout << "Yaw: " << yaw << "\n";
+    
+   // std::cout << "velocity_frame: " << msg->velocity_frame << "\n";
+
+
+
+
+    //std::cout << "Roll: " << roll << "\n";
+    //std::cout << "Pitch: " << pitch << "\n";
+    //std::cout << "Yaw: " << yaw << "\n";
+
+    //std::cout << "Roll offset: " << roll_off << "\n";
+    //std::cout << "Pitch offset: " << pitch_off << "\n";
+    //std::cout << "Yaw offset: " << yaw_off << "\n";
 
    // std::cout << "qx: " << msg->q[0] << "\n";
    // std::cout << "qy: " << msg->q[1] << "\n";
@@ -148,17 +164,98 @@ void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::S
   // roll = pitch
   // pitch = pitch
   // yaw = roll-1.5708
+    double vx     = msg->velocity[1];
+    double vy     = msg->velocity[0];
+    double vz     = -msg->velocity[2];
+    double Phi    = 0.0;
+    double Theta  = 0.0;
+    double Psi    = roll-1.570;
 
+    //Phi   = -Phi;>
+    //Theta = -Theta;
+    //Psi   = Psi;
+
+    Psi = -Psi;
+    //tf2::Matrix3x3 R_BI;
+    Eigen::Matrix3d R_BI;
+
+    Eigen::Matrix3d Rx, Ry, Rz;
+
+    Rx << 1, 0, 0,
+          0, cos(Psi), -sin(Psi),
+          0, sin(Psi), cos(Psi);
+
+    Ry << cos(Psi), 0, sin(Psi),
+          0, 1, 0,
+          -sin(Psi), 0, cos(Psi);
+
+    Rz << cos(Psi), -sin(Psi), 0,
+          sin(Psi), cos(Psi), 0,
+          0, 0, 1;
+
+    Eigen::Matrix3d R = Rz ;
+
+
+    //Eigen::Matrix3d R = Rz
+    R_BI << cos(Theta) * cos(Psi), sin(Phi) * sin(Theta) * cos(Psi) - sin(Psi) * cos(Phi), cos(Phi) * sin(Theta) * cos(Psi) + sin(Phi) * sin(Psi),
+            cos(Theta) * sin(Psi), sin(Phi) * sin(Theta) * sin(Psi) + cos(Psi) * cos(Phi), cos(Phi) * sin(Theta) * sin(Psi) - sin(Phi) * cos(Psi),
+            -sin(Theta), sin(Phi) * cos(Theta), cos(Phi) * cos(Theta);
+
+    Eigen::Matrix3d R_BI_transposed = R_BI.transpose().eval();
+
+    R_BI_transposed = R_BI;
+
+    //double r_vx = R_BI_transposed(0, 0) * vx + R_BI_transposed(0, 1) * vy + R_BI_transposed(0, 2) * vz;
+    //double r_vy = R_BI_transposed(1, 0) * vx + R_BI_transposed(1, 1) * vy + R_BI_transposed(1, 2) * vz;
+    //double r_vz = R_BI_transposed(2, 0) * vx + R_BI_transposed(2, 1) * vy + R_BI_transposed(2, 2) * vz;
+
+    
+    double r_vx = cos(Psi) * vx - sin(Psi) * vy ;
+    double r_vy = sin(Psi) * vx + cos(Psi) * vy;
+    double r_vz = vz;
+
+
+
+    //
+    //R = R.transpose().eval();
+    //
+    //double r_vx = R(0, 0) * vx + R(0, 1) * vy + R(0, 2) * vz;
+    //double r_vy = R(1, 0) * vx + R(1, 1) * vy + R(1, 2) * vz;
+    //double r_vz = R(2, 0) * vx + R(2, 1) * vy + R(2, 2) * vz;
+
+
+
+    std::cout << "vx: " << vx << "\n";
+    std::cout << "r_vx: " << r_vx << "\n";
+    std::cout << "Yaw: " << Psi << "\n";
+
+
+
+    //double r_vx = cos(Theta) * cos(Psi) * vx +
+    //              (sin(Phi) * sin(Theta) * cos(Psi) - sin(Psi) * cos(Phi)) * vy +
+    //              (cos(Phi) * sin(Theta) * cos(Psi) + sin(Phi) * sin(Psi)) * vz;
+
+  //  double r_vy = cos(Theta) * sin(Psi) * vx +
+    //              (sin(Phi) * sin(Theta) * sin(Psi) + cos(Psi) * cos(Phi)) * vy +
+    //              (cos(Phi) * sin(Theta) * sin(Psi) - sin(Phi) * cos(Psi)) * vz;
+
+    //double r_vz = -sin(Theta) * vx +
+    //              sin(Phi) * cos(Theta) * vy +
+    //              cos(Phi) * cos(Theta) * vz;
+        
+
+    
 
   current_states = { msg->position[1], 
                       msg->position[0],
                       -msg->position[2],
-                      msg->velocity[1],
-                     msg->velocity[0],
-                    -msg->velocity[2],
+                          r_vx,
+                          r_vy,
+                          r_vz,
                          yaw,    //yaw
                           pitch,  //pitch
-                          roll-1.5708};   //roll
+                          //roll};   //roll
+                          -Psi};   //roll
 
 
 
@@ -268,11 +365,14 @@ void ModelPredictiveControl::publish_control()
 
 
   msg.pitch = -control_cmd.control_attitude_vec[1];
-  msg.yaw = control_cmd.control_attitude_vec[2];
 
-  //msg.yaw = 0.3;
+  //msg.yaw = control_cmd.control_attitude_vec[2];
 
-  //msg.roll = 0.01;
+  //msg.yaw = 0.00;
+
+  msg.yaw = 0.0;
+
+  //msg.roll = 0.00;
   //msg.pitch = 0.00;
   //msg.yaw = 0.0;
    
@@ -282,11 +382,11 @@ void ModelPredictiveControl::publish_control()
   //cout <<"C01: Thrust1:" << msg.thrust_body[0] << endl;
    //cout << "C12: Thrust2:" << msg.thrust_body[1] << endl;
    
-  cout << "C1: Thrust:" << -control_cmd.control_thrust_vec[2]/scale << endl;
+  //cout << "C1: Thrust:" << -control_cmd.control_thrust_vec[2]/scale << endl;
   
-  cout << "C2: p: " << control_cmd.control_attitude_vec[0] << endl;
-  cout << "C3: q: " << control_cmd.control_attitude_vec[1] << endl;
-  cout << "C4: r: " << control_cmd.control_attitude_vec[2] << endl;
+  //cout << "C2: p: " << control_cmd.control_attitude_vec[0] << endl;
+  //cout << "C3: q: " << control_cmd.control_attitude_vec[1] << endl;
+  //cout << "C4: r: " << control_cmd.control_attitude_vec[2] << endl;
 
     //nmpc_cmd_obj_pub.publish(obj_val_msg);       replace this!!
 }
@@ -295,9 +395,9 @@ void ModelPredictiveControl::publish_control()
 int main(int argc, char *argv[])
 {
 
-
-  ref_trajectory = { 2.0,     // px
-                      2.0,    // py
+  
+  ref_trajectory = { 0.0,     // px
+                      0.0,    // py
                       2.0,    // pz
                       0.0,    // u
                       0.0,    // v
@@ -319,7 +419,7 @@ int main(int argc, char *argv[])
   nmpc_struct.W(5) = 1.0;
   nmpc_struct.W(6) = 30.0;
   nmpc_struct.W(7) = 30.0;
-  nmpc_struct.W(8) = 30.0;
+  nmpc_struct.W(8) = 300.0;
 
   nmpc_struct.W(9) = 0.5;
   nmpc_struct.W(10) = 10.0;
@@ -409,10 +509,23 @@ int main(int argc, char *argv[])
 
     auto mpc_node = std::make_shared<ModelPredictiveControl>(nmpc);
 
+   
+    double t = 0.0;  // Initialize time
+     
      while (rclcpp::ok()){ 
 
-
-
+            ref_trajectory = {
+                1.0 ,  // px (x-coordinate)
+                2.0,  // pz (constant or modified z-coordinate)
+                0.0,  // u
+                0.0,  // v
+                0.0,  // w
+                0.0,  // phi
+                0.0,  // theta
+                0.0   // psi
+            };
+            
+            t += 0.01;  // Adjust `time_step` according to your simulation's time step
          nmpc->nmpc_core(nmpc_struct,
                       nmpc->nmpc_struct,
                                nmpc->nmpc_cmd_struct,
@@ -420,7 +533,7 @@ int main(int argc, char *argv[])
                                online_data,
                                current_states);
             
- 
+         
           rclcpp::spin_some(mpc_node); // Spin only for the current node
         
   }

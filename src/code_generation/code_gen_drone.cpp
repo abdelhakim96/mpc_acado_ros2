@@ -30,9 +30,9 @@ int main( )
 	DifferentialState 	theta; 		
 	DifferentialState 	psi;
 
-    OnlineData Fx_dist;   // the roll rate
-    OnlineData Fy_dist;   // the pitch rate
-    OnlineData Fz_dist;   // the yaw rate
+    OnlineData Fx_dist;   
+    OnlineData Fy_dist;   
+    OnlineData Fz_dist;   
 
 	Control             F_zb    ;  // thrust
 	Control 			p	;	// roll rate

@@ -85,6 +85,7 @@ rclcpp::Time start_time;
 
 
 double roll, pitch, yaw;
+double roll_off, pitch_off, yaw_off;
 nmpc_struct_ nmpc_struct;
 online_data_struct_ online_data;
 
