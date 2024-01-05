@@ -45,9 +45,9 @@ colcon build
 ```
 
 
-# Updating the Drone Model
+## Updating the Drone Model
 
-## Steps:
+### Steps:
 
 1. **Update Model:**
     - Edit `code_gen_drone.cpp` in `~/mpc_acado/src/code_generation`.
