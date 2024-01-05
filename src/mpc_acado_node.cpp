@@ -332,7 +332,7 @@ int main(int argc, char *argv[])
   nmpc_struct.max_Fz_scale = 10.0;
   nmpc_struct.W_Wn_factor = 0.5;
   
-  double u_ref = 9.81*1.2*1.43;
+  double u_ref = 9.81*1.2*1.5;
   nmpc_struct.U_ref(0) = u_ref;   //m*g
   nmpc_struct.U_ref(1) = 0.0;
   nmpc_struct.U_ref(2) = 0.0;
