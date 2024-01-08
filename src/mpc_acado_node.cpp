@@ -36,6 +36,8 @@ public:
      position_subscriber_ = this->create_subscription<px4_msgs::msg::VehicleOdometry>(
             "/fmu/out/vehicle_odometry", qos, std::bind(&ModelPredictiveControl::position_cb, this, std::placeholders::_1));
 
+     gp_dist_subscriber_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
+            "/gp_pred_mu", qos, std::bind(&ModelPredictiveControl::gp_dist_cb, this, std::placeholders::_1));
 
 
 
@@ -75,10 +77,13 @@ public:
 private:
 
   void position_cb(const px4_msgs::msg::VehicleOdometry::SharedPtr msg);
+  void gp_dist_cb(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
+
   rclcpp::TimerBase::SharedPtr timer_;
 
 
-    rclcpp::Subscription<px4_msgs::msg::VehicleOdometry>::SharedPtr position_subscriber_;
+  rclcpp::Subscription<px4_msgs::msg::VehicleOdometry>::SharedPtr position_subscriber_;
+  rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr gp_dist_subscriber_;
 
 
 
@@ -100,6 +105,13 @@ private:
 
 };
 
+
+
+void ModelPredictiveControl::gp_dist_cb(const std_msgs::msg::Float64MultiArray::SharedPtr msg) {
+
+   gp_dist ={msg->data[0],msg->data[1],msg->data[2]};
+
+}
 
 
 void ModelPredictiveControl::position_cb(const px4_msgs::msg::VehicleOdometry::SharedPtr msg) {
@@ -305,6 +317,12 @@ int main(int argc, char *argv[])
                       0.0,    // theta
                       0.0     // psi
                       };
+
+  gp_dist = {0.0,
+             0.0,
+            0.0};
+
+
   nmpc_struct.U_ref.resize(NMPC_NU);
   nmpc_struct.W.resize(NMPC_NY);
 
@@ -312,7 +330,7 @@ int main(int argc, char *argv[])
 
   nmpc_struct.W(0) = 30.0;
   nmpc_struct.W(1) = 30.0;
-  nmpc_struct.W(2) = 10.0;
+  nmpc_struct.W(2) = 30.0;
   nmpc_struct.W(3) = 1.0;
   nmpc_struct.W(4) = 1.0;
   nmpc_struct.W(5) = 1.0;
@@ -332,7 +350,7 @@ int main(int argc, char *argv[])
   nmpc_struct.max_Fz_scale = 10.0;
   nmpc_struct.W_Wn_factor = 0.5;
   
-  double u_ref = 9.81*1.2*1.5;
+  double u_ref = 9.81*1.2*1.49;
   nmpc_struct.U_ref(0) = u_ref;   //m*g
   nmpc_struct.U_ref(1) = 0.0;
   nmpc_struct.U_ref(2) = 0.0;
@@ -377,9 +395,7 @@ int main(int argc, char *argv[])
     online_data.distFy = dist_Fy.data;
     online_data.distFz = dist_Fz.data;
 
-  online_data.distFx = {0.0,0.0,0.0};
-  online_data.distFy = {0.0,0.0,0.0};
-  online_data.distFz = {0.0,0.0,0.0};
+
 
 
   NMPC* nmpc = new NMPC(nmpc_struct);
@@ -411,7 +427,9 @@ int main(int argc, char *argv[])
     double t = 0.0;  // Initialize time
      
      while (rclcpp::ok()){ 
-
+  online_data.distFx = {gp_dist.at(0)};
+  online_data.distFy = {gp_dist.at(1)};
+  online_data.distFz = {gp_dist.at(2)};
   ref_trajectory = { 2.0,     // px
                       2.0,    // py
                       2.0,    // pz
@@ -430,8 +448,8 @@ int main(int argc, char *argv[])
                                ref_trajectory,
                                online_data,
                                current_states);
-            
-         
+          
+         //std::cout<<"online_data " << online_data.distFx[0];
           rclcpp::spin_some(mpc_node); // Spin only for the current node
         
   }

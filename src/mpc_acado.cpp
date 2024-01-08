@@ -268,9 +268,9 @@ void NMPC::set_measurements(struct acado_struct& acadostruct,
        // acadostruct.od[(i * acadostruct.acado_NOD) + ref_idx++] = online_data.distFx[i];
        // acadostruct.od[(i * acadostruct.acado_NOD) + ref_idx++] = online_data.distFy[i];
        // acadostruct.od[(i * acadostruct.acado_NOD) + ref_idx++] = online_data.distFz[i];
-        acadostruct.od[(i * acadostruct.acado_NOD) + ref_idx++] = 0.0;
-        acadostruct.od[(i * acadostruct.acado_NOD) + ref_idx++] = 0.0;
-        acadostruct.od[(i * acadostruct.acado_NOD) + ref_idx++] = 0.0;
+        acadostruct.od[(i * acadostruct.acado_NOD) + ref_idx++] = online_data.distFx[0];
+        acadostruct.od[(i * acadostruct.acado_NOD) + ref_idx++] = online_data.distFy[0];
+        acadostruct.od[(i * acadostruct.acado_NOD) + ref_idx++] = online_data.distFz[0];
         
     }
 

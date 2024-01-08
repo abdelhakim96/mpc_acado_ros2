@@ -64,7 +64,7 @@ using std::placeholders::_1;
 #include "tf2/utils.h"
 #include <chrono>
 #include <iostream>
-
+#include "std_msgs/msg/float64_multi_array.hpp"
 using namespace std::chrono;
 using namespace std::chrono_literals;
 using namespace px4_msgs::msg;
@@ -97,7 +97,7 @@ std::vector<double> point;
 std::vector<double> current_vel_rate;
 std::vector<double> current_states;
 std::vector<double> ref_trajectory; 
-
+std::vector<double> gp_dist;
 
 struct _dist_struct
 {
