@@ -1,0 +1,402 @@
+[0.000000] (-) TimerEvent: {}
+[0.000239] (mpc_acado) JobQueued: {'identifier': 'mpc_acado', 'dependencies': OrderedDict()}
+[0.000708] (mpc_acado) JobStarted: {'identifier': 'mpc_acado'}
+[0.019747] (mpc_acado) JobProgress: {'identifier': 'mpc_acado', 'progress': 'cmake'}
+[0.021384] (mpc_acado) JobProgress: {'identifier': 'mpc_acado', 'progress': 'build'}
+[0.022627] (mpc_acado) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado', '--', '-j12', '-l12'], 'cwd': '/home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US:en'), ('USER', 'airlab'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/airlab/drone_control_ws/install/px4_ros_com/lib:/home/airlab/drone_control_ws/install/px4_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/airlab'), ('CHROME_DESKTOP', 'code.desktop'), ('OLDPWD', '/home/airlab/test_ws'), ('TERM_PROGRAM_VERSION', '1.103.0'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/code/code'), ('MANAGERPID', '1995'), ('SYSTEMD_EXEC_PID', '2442'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator23558193cd9818af7fe4d2c2f5bd9d00f'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '5160'), ('COLCON_PREFIX_PATH', '/home/airlab/drone_control_ws/install:/home/airlab/drone_control_ws/src/mpc_casadi_ros2/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'airlab'), ('JOURNAL_STREAM', '8:18653'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'airlab'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/airlab/drone_control_ws/install/drone_nn_dynamics/bin:/opt/ros/humble/bin:/home/airlab/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/airlab/.config/Code/User/globalStorage/github.copilot-chat/debugCommand'), ('SESSION_MANAGER', 'local/airlab:@/tmp/.ICE-unix/2394,unix/airlab:/tmp/.ICE-unix/2394'), ('INVOCATION_ID', 'ee01df2d24194d0ab9c0b10cc4153fc3'), ('XDG_MENU_PREFIX', 'gnome-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':1'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('IBUS_DISABLE_SNOOPER', '1'), ('CLINE_ACTIVE', 'true'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ca4ecbd9a5.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/airlab/drone_control_ws/install/px4_ros_com:/home/airlab/drone_control_ws/install/mpc_casadi_node:/home/airlab/drone_control_ws/install/drone_trajectory_control:/home/airlab/drone_control_ws/install/drone_nn_dynamics:/home/airlab/drone_control_ws/install/px4_msgs:/home/airlab/drone_control_ws/install/cl_control:/home/airlab/drone_control_ws/src/mpc_casadi_ros2/install/mpc_casadi_node:/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('TERMINATOR_UUID', 'urn:uuid:132980c6-c53d-4d2d-aec0-5b934b954c3e'), ('QT_ACCESSIBILITY', '1'), ('NO_AT_BRIDGE', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/airlab/drone_control_ws/install/px4_ros_com/local/lib/python3.10/dist-packages:/home/airlab/drone_control_ws/install/drone_nn_dynamics/lib/python3.10/site-packages:/home/airlab/drone_control_ws/install/px4_msgs/local/lib/python3.10/dist-packages:/home/airlab/drone_control_ws/install/cl_control/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/airlab/drone_control_ws/install/px4_ros_com:/home/airlab/drone_control_ws/install/mpc_casadi_node:/home/airlab/drone_control_ws/install/drone_trajectory_control:/home/airlab/drone_control_ws/install/px4_msgs:/home/airlab/drone_control_ws/src/mpc_casadi_ros2/install/mpc_casadi_node:/home/airlab/drone_control_ws/install/drone_nn_dynamics:/home/airlab/drone_control_ws/install/cl_control:/opt/ros/humble')]), 'shell': False}
+[0.098506] (-) TimerEvent: {}
+[0.137296] (mpc_acado) StdoutLine: {'line': b'[ 78%] Built target mpc_solver\n'}
+[0.159057] (mpc_acado) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target mpc_acado_node\x1b[0m\n'}
+[0.187865] (mpc_acado) StdoutLine: {'line': b'[ 89%] Built target code_gen_drone\n'}
+[0.198678] (-) TimerEvent: {}
+[0.211226] (mpc_acado) StdoutLine: {'line': b'[ 94%] \x1b[32mBuilding CXX object CMakeFiles/mpc_acado_node.dir/src/mpc_acado_node.cpp.o\x1b[0m\n'}
+[0.298751] (-) TimerEvent: {}
+[0.400064] (-) TimerEvent: {}
+[0.500676] (-) TimerEvent: {}
+[0.601271] (-) TimerEvent: {}
+[0.701917] (-) TimerEvent: {}
+[0.802287] (-) TimerEvent: {}
+[0.903703] (-) TimerEvent: {}
+[1.004181] (-) TimerEvent: {}
+[1.104672] (-) TimerEvent: {}
+[1.204976] (-) TimerEvent: {}
+[1.307797] (-) TimerEvent: {}
+[1.408426] (-) TimerEvent: {}
+[1.508892] (-) TimerEvent: {}
+[1.609270] (-) TimerEvent: {}
+[1.709658] (-) TimerEvent: {}
+[1.810101] (-) TimerEvent: {}
+[1.910705] (-) TimerEvent: {}
+[2.011576] (-) TimerEvent: {}
+[2.112290] (-) TimerEvent: {}
+[2.213370] (-) TimerEvent: {}
+[2.313706] (-) TimerEvent: {}
+[2.414049] (-) TimerEvent: {}
+[2.514582] (-) TimerEvent: {}
+[2.615124] (-) TimerEvent: {}
+[2.715607] (-) TimerEvent: {}
+[2.816204] (-) TimerEvent: {}
+[2.916580] (-) TimerEvent: {}
+[3.016936] (-) TimerEvent: {}
+[3.117344] (-) TimerEvent: {}
+[3.217657] (-) TimerEvent: {}
+[3.317957] (-) TimerEvent: {}
+[3.418296] (-) TimerEvent: {}
+[3.518738] (-) TimerEvent: {}
+[3.619244] (-) TimerEvent: {}
+[3.719546] (-) TimerEvent: {}
+[3.753408] (mpc_acado) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/usr/include/boost/smart_ptr/detail/sp_thread_sleep.hpp:22\x1b[m\x1b[K,\n'}
+[3.753627] (mpc_acado) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/boost/smart_ptr/detail/yield_k.hpp:23\x1b[m\x1b[K,\n'}
+[3.753787] (mpc_acado) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/boost/smart_ptr/detail/spinlock_gcc_atomic.hpp:14\x1b[m\x1b[K,\n'}
+[3.753900] (mpc_acado) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/boost/smart_ptr/detail/spinlock.hpp:42\x1b[m\x1b[K,\n'}
+[3.753979] (mpc_acado) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/boost/smart_ptr/detail/spinlock_pool.hpp:25\x1b[m\x1b[K,\n'}
+[3.754056] (mpc_acado) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/boost/smart_ptr/shared_ptr.hpp:29\x1b[m\x1b[K,\n'}
+[3.754130] (mpc_acado) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/boost/shared_ptr.hpp:17\x1b[m\x1b[K,\n'}
+[3.754203] (mpc_acado) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/airlab/test_ws/src/mpc_acado_ros2/include/mpc_acado.h:9\x1b[m\x1b[K,\n'}
+[3.754337] (mpc_acado) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado.cpp:2\x1b[m\x1b[K,\n'}
+[3.754497] (mpc_acado) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado_node.cpp:8\x1b[m\x1b[K:\n'}
+[3.754662] (mpc_acado) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/boost/bind.hpp:36:1:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[K#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.\x1b[m\x1b[K\xe2\x80\x99\n'}
+[3.754846] (mpc_acado) StderrLine: {'line': b'   36 | \x1b[01;36m\x1b[KBOOST_PRAGMA_MESSAGE\x1b[m\x1b[K(\n'}
+[3.755009] (mpc_acado) StderrLine: {'line': b'      | \x1b[01;36m\x1b[K^~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[3.806258] (mpc_acado) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado_node.cpp:8\x1b[m\x1b[K:\n'}
+[3.806530] (mpc_acado) StderrLine: {'line': b'\x1b[01m\x1b[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvoid NMPC::nmpc_init(std::vector<double>, NMPC::acado_struct&)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[3.806768] (mpc_acado) StderrLine: {'line': b'\x1b[01m\x1b[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado.cpp:79:42:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kunused parameter \xe2\x80\x98\x1b[01m\x1b[Kposref\x1b[m\x1b[K\xe2\x80\x99 [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter\x07-Wunused-parameter\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[3.806973] (mpc_acado) StderrLine: {'line': b'   79 | void NMPC::nmpc_init(\x1b[01;35m\x1b[Kstd::vector<double> posref\x1b[m\x1b[K, struct acado_struct& acadostruct)\n'}
+[3.807166] (mpc_acado) StderrLine: {'line': b'      |                      \x1b[01;35m\x1b[K~~~~~~~~~~~~~~~~~~~~^~~~~~\x1b[m\x1b[K\n'}
+[3.819711] (-) TimerEvent: {}
+[3.920246] (-) TimerEvent: {}
+[4.020695] (-) TimerEvent: {}
+[4.121703] (-) TimerEvent: {}
+[4.222458] (-) TimerEvent: {}
+[4.322869] (-) TimerEvent: {}
+[4.423300] (-) TimerEvent: {}
+[4.523739] (-) TimerEvent: {}
+[4.624299] (-) TimerEvent: {}
+[4.724990] (-) TimerEvent: {}
+[4.825295] (-) TimerEvent: {}
+[4.925710] (-) TimerEvent: {}
+[5.026272] (-) TimerEvent: {}
+[5.126832] (-) TimerEvent: {}
+[5.227237] (-) TimerEvent: {}
+[5.328006] (-) TimerEvent: {}
+[5.428348] (-) TimerEvent: {}
+[5.528758] (-) TimerEvent: {}
+[5.629355] (-) TimerEvent: {}
+[5.729910] (-) TimerEvent: {}
+[5.830411] (-) TimerEvent: {}
+[5.930984] (-) TimerEvent: {}
+[6.031951] (-) TimerEvent: {}
+[6.132393] (-) TimerEvent: {}
+[6.232799] (-) TimerEvent: {}
+[6.333383] (-) TimerEvent: {}
+[6.433765] (-) TimerEvent: {}
+[6.534187] (-) TimerEvent: {}
+[6.634631] (-) TimerEvent: {}
+[6.735089] (-) TimerEvent: {}
+[6.835654] (-) TimerEvent: {}
+[6.936113] (-) TimerEvent: {}
+[7.036777] (-) TimerEvent: {}
+[7.137347] (-) TimerEvent: {}
+[7.237720] (-) TimerEvent: {}
+[7.338762] (-) TimerEvent: {}
+[7.439373] (-) TimerEvent: {}
+[7.539787] (-) TimerEvent: {}
+[7.640188] (-) TimerEvent: {}
+[7.740546] (-) TimerEvent: {}
+[7.840848] (-) TimerEvent: {}
+[7.941363] (-) TimerEvent: {}
+[8.041817] (-) TimerEvent: {}
+[8.142096] (-) TimerEvent: {}
+[8.242475] (-) TimerEvent: {}
+[8.343034] (-) TimerEvent: {}
+[8.443464] (-) TimerEvent: {}
+[8.543979] (-) TimerEvent: {}
+[8.644342] (-) TimerEvent: {}
+[8.745082] (-) TimerEvent: {}
+[8.845692] (-) TimerEvent: {}
+[8.946030] (-) TimerEvent: {}
+[9.046314] (-) TimerEvent: {}
+[9.146712] (-) TimerEvent: {}
+[9.166249] (mpc_acado) StderrLine: {'line': b'\x1b[01m\x1b[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado_node.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvoid ModelPredictiveControl::position_cb(px4_msgs::msg::VehicleOdometry_<std::allocator<void> >::SharedPtr)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[9.166775] (mpc_acado) StderrLine: {'line': b'\x1b[01m\x1b[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado_node.cpp:137:12:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kunused variable \xe2\x80\x98\x1b[01m\x1b[KPhi\x1b[m\x1b[K\xe2\x80\x99 [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable\x07-Wunused-variable\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[9.166964] (mpc_acado) StderrLine: {'line': b'  137 |     double \x1b[01;35m\x1b[KPhi\x1b[m\x1b[K    = yaw;\n'}
+[9.167096] (mpc_acado) StderrLine: {'line': b'      |            \x1b[01;35m\x1b[K^~~\x1b[m\x1b[K\n'}
+[9.167244] (mpc_acado) StderrLine: {'line': b'\x1b[01m\x1b[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado_node.cpp:138:12:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kunused variable \xe2\x80\x98\x1b[01m\x1b[KTheta\x1b[m\x1b[K\xe2\x80\x99 [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable\x07-Wunused-variable\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[9.167400] (mpc_acado) StderrLine: {'line': b'  138 |     double \x1b[01;35m\x1b[KTheta\x1b[m\x1b[K  = pitch;\n'}
+[9.167562] (mpc_acado) StderrLine: {'line': b'      |            \x1b[01;35m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[9.246786] (-) TimerEvent: {}
+[9.347067] (-) TimerEvent: {}
+[9.447518] (-) TimerEvent: {}
+[9.548077] (-) TimerEvent: {}
+[9.648553] (-) TimerEvent: {}
+[9.748858] (-) TimerEvent: {}
+[9.849162] (-) TimerEvent: {}
+[9.949703] (-) TimerEvent: {}
+[10.050229] (-) TimerEvent: {}
+[10.151541] (-) TimerEvent: {}
+[10.252026] (-) TimerEvent: {}
+[10.352424] (-) TimerEvent: {}
+[10.452785] (-) TimerEvent: {}
+[10.553142] (-) TimerEvent: {}
+[10.653749] (-) TimerEvent: {}
+[10.754273] (-) TimerEvent: {}
+[10.855045] (-) TimerEvent: {}
+[10.955629] (-) TimerEvent: {}
+[11.056905] (-) TimerEvent: {}
+[11.157504] (-) TimerEvent: {}
+[11.257952] (-) TimerEvent: {}
+[11.358299] (-) TimerEvent: {}
+[11.458681] (-) TimerEvent: {}
+[11.559108] (-) TimerEvent: {}
+[11.659618] (-) TimerEvent: {}
+[11.759966] (-) TimerEvent: {}
+[11.860487] (-) TimerEvent: {}
+[11.961023] (-) TimerEvent: {}
+[12.061512] (-) TimerEvent: {}
+[12.161979] (-) TimerEvent: {}
+[12.262412] (-) TimerEvent: {}
+[12.363093] (-) TimerEvent: {}
+[12.463536] (-) TimerEvent: {}
+[12.563990] (-) TimerEvent: {}
+[12.664665] (-) TimerEvent: {}
+[12.765049] (-) TimerEvent: {}
+[12.865511] (-) TimerEvent: {}
+[12.966215] (-) TimerEvent: {}
+[13.066473] (-) TimerEvent: {}
+[13.166908] (-) TimerEvent: {}
+[13.267509] (-) TimerEvent: {}
+[13.368012] (-) TimerEvent: {}
+[13.468350] (-) TimerEvent: {}
+[13.568810] (-) TimerEvent: {}
+[13.669203] (-) TimerEvent: {}
+[13.769746] (-) TimerEvent: {}
+[13.871038] (-) TimerEvent: {}
+[13.971355] (-) TimerEvent: {}
+[14.071664] (-) TimerEvent: {}
+[14.172007] (-) TimerEvent: {}
+[14.272500] (-) TimerEvent: {}
+[14.372969] (-) TimerEvent: {}
+[14.473261] (-) TimerEvent: {}
+[14.573785] (-) TimerEvent: {}
+[14.674158] (-) TimerEvent: {}
+[14.774624] (-) TimerEvent: {}
+[14.875189] (-) TimerEvent: {}
+[14.975562] (-) TimerEvent: {}
+[15.076187] (-) TimerEvent: {}
+[15.176562] (-) TimerEvent: {}
+[15.277050] (-) TimerEvent: {}
+[15.377486] (-) TimerEvent: {}
+[15.477865] (-) TimerEvent: {}
+[15.578206] (-) TimerEvent: {}
+[15.678802] (-) TimerEvent: {}
+[15.779188] (-) TimerEvent: {}
+[15.879558] (-) TimerEvent: {}
+[15.979900] (-) TimerEvent: {}
+[16.080355] (-) TimerEvent: {}
+[16.180915] (-) TimerEvent: {}
+[16.281601] (-) TimerEvent: {}
+[16.381971] (-) TimerEvent: {}
+[16.482560] (-) TimerEvent: {}
+[16.583126] (-) TimerEvent: {}
+[16.683441] (-) TimerEvent: {}
+[16.783884] (-) TimerEvent: {}
+[16.884307] (-) TimerEvent: {}
+[16.984695] (-) TimerEvent: {}
+[17.085070] (-) TimerEvent: {}
+[17.185436] (-) TimerEvent: {}
+[17.285815] (-) TimerEvent: {}
+[17.386302] (-) TimerEvent: {}
+[17.486585] (-) TimerEvent: {}
+[17.587156] (-) TimerEvent: {}
+[17.687847] (-) TimerEvent: {}
+[17.788413] (-) TimerEvent: {}
+[17.889104] (-) TimerEvent: {}
+[17.989621] (-) TimerEvent: {}
+[18.090076] (-) TimerEvent: {}
+[18.190577] (-) TimerEvent: {}
+[18.291230] (-) TimerEvent: {}
+[18.392195] (-) TimerEvent: {}
+[18.492591] (-) TimerEvent: {}
+[18.592928] (-) TimerEvent: {}
+[18.693714] (-) TimerEvent: {}
+[18.794373] (-) TimerEvent: {}
+[18.895289] (-) TimerEvent: {}
+[18.995828] (-) TimerEvent: {}
+[19.096278] (-) TimerEvent: {}
+[19.196610] (-) TimerEvent: {}
+[19.297214] (-) TimerEvent: {}
+[19.397690] (-) TimerEvent: {}
+[19.498054] (-) TimerEvent: {}
+[19.598327] (-) TimerEvent: {}
+[19.698689] (-) TimerEvent: {}
+[19.799151] (-) TimerEvent: {}
+[19.899509] (-) TimerEvent: {}
+[20.000133] (-) TimerEvent: {}
+[20.100549] (-) TimerEvent: {}
+[20.201091] (-) TimerEvent: {}
+[20.301765] (-) TimerEvent: {}
+[20.402324] (-) TimerEvent: {}
+[20.502881] (-) TimerEvent: {}
+[20.605194] (-) TimerEvent: {}
+[20.705535] (-) TimerEvent: {}
+[20.805946] (-) TimerEvent: {}
+[20.906406] (-) TimerEvent: {}
+[21.006935] (-) TimerEvent: {}
+[21.107333] (-) TimerEvent: {}
+[21.207628] (-) TimerEvent: {}
+[21.308005] (-) TimerEvent: {}
+[21.408494] (-) TimerEvent: {}
+[21.510480] (-) TimerEvent: {}
+[21.610908] (-) TimerEvent: {}
+[21.711482] (-) TimerEvent: {}
+[21.811974] (-) TimerEvent: {}
+[21.912384] (-) TimerEvent: {}
+[22.013023] (-) TimerEvent: {}
+[22.113469] (-) TimerEvent: {}
+[22.213851] (-) TimerEvent: {}
+[22.314295] (-) TimerEvent: {}
+[22.414706] (-) TimerEvent: {}
+[22.515145] (-) TimerEvent: {}
+[22.615671] (-) TimerEvent: {}
+[22.716133] (-) TimerEvent: {}
+[22.816529] (-) TimerEvent: {}
+[22.917091] (-) TimerEvent: {}
+[23.017662] (-) TimerEvent: {}
+[23.118064] (-) TimerEvent: {}
+[23.218762] (-) TimerEvent: {}
+[23.319308] (-) TimerEvent: {}
+[23.419786] (-) TimerEvent: {}
+[23.520162] (-) TimerEvent: {}
+[23.620522] (-) TimerEvent: {}
+[23.720830] (-) TimerEvent: {}
+[23.821197] (-) TimerEvent: {}
+[23.921538] (-) TimerEvent: {}
+[24.021918] (-) TimerEvent: {}
+[24.122417] (-) TimerEvent: {}
+[24.223008] (-) TimerEvent: {}
+[24.323394] (-) TimerEvent: {}
+[24.423701] (-) TimerEvent: {}
+[24.524090] (-) TimerEvent: {}
+[24.624546] (-) TimerEvent: {}
+[24.725201] (-) TimerEvent: {}
+[24.825573] (-) TimerEvent: {}
+[24.925949] (-) TimerEvent: {}
+[25.026338] (-) TimerEvent: {}
+[25.126650] (-) TimerEvent: {}
+[25.227031] (-) TimerEvent: {}
+[25.327379] (-) TimerEvent: {}
+[25.427899] (-) TimerEvent: {}
+[25.528345] (-) TimerEvent: {}
+[25.629171] (-) TimerEvent: {}
+[25.729507] (-) TimerEvent: {}
+[25.829858] (-) TimerEvent: {}
+[25.930241] (-) TimerEvent: {}
+[26.030542] (-) TimerEvent: {}
+[26.131165] (-) TimerEvent: {}
+[26.231716] (-) TimerEvent: {}
+[26.332223] (-) TimerEvent: {}
+[26.432619] (-) TimerEvent: {}
+[26.533133] (-) TimerEvent: {}
+[26.633583] (-) TimerEvent: {}
+[26.734327] (-) TimerEvent: {}
+[26.837801] (-) TimerEvent: {}
+[26.939121] (-) TimerEvent: {}
+[27.039667] (-) TimerEvent: {}
+[27.139998] (-) TimerEvent: {}
+[27.240268] (-) TimerEvent: {}
+[27.340692] (-) TimerEvent: {}
+[27.441587] (-) TimerEvent: {}
+[27.542294] (-) TimerEvent: {}
+[27.643073] (-) TimerEvent: {}
+[27.743593] (-) TimerEvent: {}
+[27.843885] (-) TimerEvent: {}
+[27.944196] (-) TimerEvent: {}
+[28.044598] (-) TimerEvent: {}
+[28.144927] (-) TimerEvent: {}
+[28.245241] (-) TimerEvent: {}
+[28.347115] (-) TimerEvent: {}
+[28.447408] (-) TimerEvent: {}
+[28.547801] (-) TimerEvent: {}
+[28.648164] (-) TimerEvent: {}
+[28.748683] (-) TimerEvent: {}
+[28.849731] (-) TimerEvent: {}
+[28.949963] (-) TimerEvent: {}
+[29.050215] (-) TimerEvent: {}
+[29.150519] (-) TimerEvent: {}
+[29.251026] (-) TimerEvent: {}
+[29.351720] (-) TimerEvent: {}
+[29.452247] (-) TimerEvent: {}
+[29.552996] (-) TimerEvent: {}
+[29.653320] (-) TimerEvent: {}
+[29.753723] (-) TimerEvent: {}
+[29.854394] (-) TimerEvent: {}
+[29.955000] (-) TimerEvent: {}
+[30.055353] (-) TimerEvent: {}
+[30.155828] (-) TimerEvent: {}
+[30.256191] (-) TimerEvent: {}
+[30.356559] (-) TimerEvent: {}
+[30.456949] (-) TimerEvent: {}
+[30.557374] (-) TimerEvent: {}
+[30.658024] (-) TimerEvent: {}
+[30.758429] (-) TimerEvent: {}
+[30.859598] (-) TimerEvent: {}
+[30.960147] (-) TimerEvent: {}
+[31.060724] (-) TimerEvent: {}
+[31.161323] (-) TimerEvent: {}
+[31.261842] (-) TimerEvent: {}
+[31.362401] (-) TimerEvent: {}
+[31.462797] (-) TimerEvent: {}
+[31.563212] (-) TimerEvent: {}
+[31.663528] (-) TimerEvent: {}
+[31.764071] (-) TimerEvent: {}
+[31.864577] (-) TimerEvent: {}
+[31.899298] (mpc_acado) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable mpc_acado_node\x1b[0m\n'}
+[31.964699] (-) TimerEvent: {}
+[32.065039] (-) TimerEvent: {}
+[32.165456] (-) TimerEvent: {}
+[32.266039] (-) TimerEvent: {}
+[32.367178] (-) TimerEvent: {}
+[32.468629] (-) TimerEvent: {}
+[32.569833] (-) TimerEvent: {}
+[32.670336] (-) TimerEvent: {}
+[32.770966] (-) TimerEvent: {}
+[32.871769] (-) TimerEvent: {}
+[32.972150] (-) TimerEvent: {}
+[33.072976] (-) TimerEvent: {}
+[33.173469] (-) TimerEvent: {}
+[33.274013] (-) TimerEvent: {}
+[33.374400] (-) TimerEvent: {}
+[33.474890] (-) TimerEvent: {}
+[33.575421] (-) TimerEvent: {}
+[33.675810] (-) TimerEvent: {}
+[33.776160] (-) TimerEvent: {}
+[33.875980] (mpc_acado) StdoutLine: {'line': b'[100%] Built target mpc_acado_node\n'}
+[33.876154] (-) TimerEvent: {}
+[33.897383] (mpc_acado) CommandEnded: {'returncode': 0}
+[33.898799] (mpc_acado) JobProgress: {'identifier': 'mpc_acado', 'progress': 'install'}
+[33.915015] (mpc_acado) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado'], 'cwd': '/home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US:en'), ('USER', 'airlab'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/airlab/drone_control_ws/install/px4_ros_com/lib:/home/airlab/drone_control_ws/install/px4_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/airlab'), ('CHROME_DESKTOP', 'code.desktop'), ('OLDPWD', '/home/airlab/test_ws'), ('TERM_PROGRAM_VERSION', '1.103.0'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/code/code'), ('MANAGERPID', '1995'), ('SYSTEMD_EXEC_PID', '2442'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator23558193cd9818af7fe4d2c2f5bd9d00f'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '5160'), ('COLCON_PREFIX_PATH', '/home/airlab/drone_control_ws/install:/home/airlab/drone_control_ws/src/mpc_casadi_ros2/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'airlab'), ('JOURNAL_STREAM', '8:18653'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'airlab'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/airlab/drone_control_ws/install/drone_nn_dynamics/bin:/opt/ros/humble/bin:/home/airlab/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/airlab/.config/Code/User/globalStorage/github.copilot-chat/debugCommand'), ('SESSION_MANAGER', 'local/airlab:@/tmp/.ICE-unix/2394,unix/airlab:/tmp/.ICE-unix/2394'), ('INVOCATION_ID', 'ee01df2d24194d0ab9c0b10cc4153fc3'), ('XDG_MENU_PREFIX', 'gnome-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':1'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('IBUS_DISABLE_SNOOPER', '1'), ('CLINE_ACTIVE', 'true'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ca4ecbd9a5.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/airlab/drone_control_ws/install/px4_ros_com:/home/airlab/drone_control_ws/install/mpc_casadi_node:/home/airlab/drone_control_ws/install/drone_trajectory_control:/home/airlab/drone_control_ws/install/drone_nn_dynamics:/home/airlab/drone_control_ws/install/px4_msgs:/home/airlab/drone_control_ws/install/cl_control:/home/airlab/drone_control_ws/src/mpc_casadi_ros2/install/mpc_casadi_node:/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('TERMINATOR_UUID', 'urn:uuid:132980c6-c53d-4d2d-aec0-5b934b954c3e'), ('QT_ACCESSIBILITY', '1'), ('NO_AT_BRIDGE', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/airlab/drone_control_ws/install/px4_ros_com/local/lib/python3.10/dist-packages:/home/airlab/drone_control_ws/install/drone_nn_dynamics/lib/python3.10/site-packages:/home/airlab/drone_control_ws/install/px4_msgs/local/lib/python3.10/dist-packages:/home/airlab/drone_control_ws/install/cl_control/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/airlab/drone_control_ws/install/px4_ros_com:/home/airlab/drone_control_ws/install/mpc_casadi_node:/home/airlab/drone_control_ws/install/drone_trajectory_control:/home/airlab/drone_control_ws/install/px4_msgs:/home/airlab/drone_control_ws/src/mpc_casadi_ros2/install/mpc_casadi_node:/home/airlab/drone_control_ws/install/drone_nn_dynamics:/home/airlab/drone_control_ws/install/cl_control:/opt/ros/humble')]), 'shell': False}
+[33.931368] (mpc_acado) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[33.932055] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/ament_index/resource_index/package_run_dependencies/mpc_acado\n'}
+[33.932391] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/ament_index/resource_index/parent_prefix_path/mpc_acado\n'}
+[33.932617] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/environment/ament_prefix_path.sh\n'}
+[33.932824] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/environment/ament_prefix_path.dsv\n'}
+[33.933008] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/environment/path.sh\n'}
+[33.933149] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/environment/path.dsv\n'}
+[33.933356] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/local_setup.bash\n'}
+[33.933658] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/local_setup.sh\n'}
+[33.933996] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/local_setup.zsh\n'}
+[33.934147] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/local_setup.dsv\n'}
+[33.934276] (mpc_acado) StdoutLine: {'line': b'-- Installing: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/package.dsv\n'}
+[33.934423] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/ament_index/resource_index/packages/mpc_acado\n'}
+[33.934535] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[33.934716] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/cmake/mpc_acadoConfig.cmake\n'}
+[33.934855] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/cmake/mpc_acadoConfig-version.cmake\n'}
+[33.934981] (mpc_acado) StdoutLine: {'line': b'-- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/package.xml\n'}
+[33.935104] (mpc_acado) StdoutLine: {'line': b'-- Installing: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/lib/mpc_acado/code_gen_drone\n'}
+[33.935336] (mpc_acado) StdoutLine: {'line': b'-- Set runtime path of "/home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/lib/mpc_acado/code_gen_drone" to ""\n'}
+[33.935760] (mpc_acado) StdoutLine: {'line': b'-- Installing: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/lib/mpc_acado/mpc_acado_node\n'}
+[33.948512] (mpc_acado) StdoutLine: {'line': b'-- Set runtime path of "/home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/lib/mpc_acado/mpc_acado_node" to ""\n'}
+[33.951237] (mpc_acado) CommandEnded: {'returncode': 0}
+[33.976278] (-) TimerEvent: {}
+[33.991181] (mpc_acado) JobEnded: {'identifier': 'mpc_acado', 'rc': 0}
+[33.992676] (-) EventReactorShutdown: {}

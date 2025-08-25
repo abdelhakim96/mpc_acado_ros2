@@ -12,7 +12,7 @@ if(NOT CMAKE_C_STANDARD)
 endif()
 
 
-set(ACADO_ENV_SHARED_LIBRARIES /home/hakim/Desktop/Phd/ros2_ws/src/mpc_acado/externals/ACADOtoolkit/build/lib/libacado_toolkit_s.so)
+set(ACADO_ENV_SHARED_LIBRARIES ${PROJECT_SOURCE_DIR}/externals/ACADOtoolkit/build/lib/libacado_toolkit_s.so)
 
 
 # Default to C++14
@@ -34,6 +34,8 @@ find_package(px4_msgs REQUIRED)
 find_package(ACADO REQUIRED )
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
+find_package(Eigen3 REQUIRED)
+
 #find_package(Boost REQUIRED COMPONENTS system)
 
 
@@ -62,8 +64,6 @@ externals/qpoases/SRC
 externals/ACADOtoolkit/acado/code_generation
 externals/ACADOtoolkit/acado
 externals/ACADOtoolkit/
-
-
 )
 
 link_directories(${ACADO_ENV_LIBRARY_DIRS})
@@ -94,11 +94,13 @@ ament_package()
 add_executable(code_gen_drone src/code_generation/code_gen_drone.cpp)
 target_link_libraries(code_gen_drone  ${ACADO_ENV_SHARED_LIBRARIES} mpc_solver)
 ament_target_dependencies(code_gen_drone  )
+target_include_directories(code_gen_drone PUBLIC ${Eigen3_INCLUDE_DIRS})
 set_target_properties(code_gen_drone PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} )
 
 add_executable(mpc_acado_node src/mpc_acado_node.cpp)
-target_link_libraries(mpc_acado_node mpc_solver ${ACADO_ENV_SHARED_LIBRARIES} yaml-cpp)
+target_link_libraries(mpc_acado_node mpc_solver ${ACADO_ENV_SHARED_LIBRARIES} yaml-cpp ${Eigen3_LIBRARIES} ${tf2_LIBRARIES})
 ament_target_dependencies(mpc_acado_node rclcpp std_msgs geometry_msgs nav_msgs px4_msgs  )
+target_include_directories(mpc_acado_node PUBLIC ${Eigen3_INCLUDE_DIRS} ${tf2_INCLUDE_DIRS})
 
 install(TARGETS
   # getting_started
@@ -106,4 +108,3 @@ install(TARGETS
   mpc_acado_node
 	DESTINATION lib/${PROJECT_NAME}
 )
-

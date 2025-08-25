@@ -1,0 +1,56 @@
+[0.028s] Invoking command in '/home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/airlab/drone_control_ws/install/drone_nn_dynamics:/home/airlab/drone_control_ws/install/cl_control:/opt/ros/humble /usr/bin/cmake --build /home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado -- -j12 -l12
+[0.137s] [ 78%] Built target mpc_solver
+[0.159s] [35m[1mConsolidate compiler generated dependencies of target mpc_acado_node[0m
+[0.187s] [ 89%] Built target code_gen_drone
+[0.211s] [ 94%] [32mBuilding CXX object CMakeFiles/mpc_acado_node.dir/src/mpc_acado_node.cpp.o[0m
+[3.753s] In file included from [01m[K/usr/include/boost/smart_ptr/detail/sp_thread_sleep.hpp:22[m[K,
+[3.753s]                  from [01m[K/usr/include/boost/smart_ptr/detail/yield_k.hpp:23[m[K,
+[3.753s]                  from [01m[K/usr/include/boost/smart_ptr/detail/spinlock_gcc_atomic.hpp:14[m[K,
+[3.753s]                  from [01m[K/usr/include/boost/smart_ptr/detail/spinlock.hpp:42[m[K,
+[3.753s]                  from [01m[K/usr/include/boost/smart_ptr/detail/spinlock_pool.hpp:25[m[K,
+[3.753s]                  from [01m[K/usr/include/boost/smart_ptr/shared_ptr.hpp:29[m[K,
+[3.753s]                  from [01m[K/usr/include/boost/shared_ptr.hpp:17[m[K,
+[3.753s]                  from [01m[K/home/airlab/test_ws/src/mpc_acado_ros2/include/mpc_acado.h:9[m[K,
+[3.754s]                  from [01m[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado.cpp:2[m[K,
+[3.754s]                  from [01m[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado_node.cpp:8[m[K:
+[3.754s] [01m[K/usr/include/boost/bind.hpp:36:1:[m[K [01;36m[Knote: [m[K‘[01m[K#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.[m[K’
+[3.754s]    36 | [01;36m[KBOOST_PRAGMA_MESSAGE[m[K(
+[3.754s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[3.806s] In file included from [01m[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado_node.cpp:8[m[K:
+[3.806s] [01m[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado.cpp:[m[K In member function ‘[01m[Kvoid NMPC::nmpc_init(std::vector<double>, NMPC::acado_struct&)[m[K’:
+[3.806s] [01m[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado.cpp:79:42:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kposref[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[3.806s]    79 | void NMPC::nmpc_init([01;35m[Kstd::vector<double> posref[m[K, struct acado_struct& acadostruct)
+[3.806s]       |                      [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~~~[m[K
+[9.166s] [01m[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado_node.cpp:[m[K In member function ‘[01m[Kvoid ModelPredictiveControl::position_cb(px4_msgs::msg::VehicleOdometry_<std::allocator<void> >::SharedPtr)[m[K’:
+[9.166s] [01m[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado_node.cpp:137:12:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[KPhi[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[9.166s]   137 |     double [01;35m[KPhi[m[K    = yaw;
+[9.166s]       |            [01;35m[K^~~[m[K
+[9.167s] [01m[K/home/airlab/test_ws/src/mpc_acado_ros2/src/mpc_acado_node.cpp:138:12:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[KTheta[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[9.167s]   138 |     double [01;35m[KTheta[m[K  = pitch;
+[9.167s]       |            [01;35m[K^~~~~[m[K
+[31.899s] [100%] [32m[1mLinking CXX executable mpc_acado_node[0m
+[33.875s] [100%] Built target mpc_acado_node
+[33.897s] Invoked command in '/home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/airlab/drone_control_ws/install/drone_nn_dynamics:/home/airlab/drone_control_ws/install/cl_control:/opt/ros/humble /usr/bin/cmake --build /home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado -- -j12 -l12
+[33.916s] Invoking command in '/home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/airlab/drone_control_ws/install/drone_nn_dynamics:/home/airlab/drone_control_ws/install/cl_control:/opt/ros/humble /usr/bin/cmake --install /home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado
+[33.931s] -- Install configuration: ""
+[33.931s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/ament_index/resource_index/package_run_dependencies/mpc_acado
+[33.932s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/ament_index/resource_index/parent_prefix_path/mpc_acado
+[33.932s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/environment/ament_prefix_path.sh
+[33.932s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/environment/ament_prefix_path.dsv
+[33.932s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/environment/path.sh
+[33.932s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/environment/path.dsv
+[33.933s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/local_setup.bash
+[33.933s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/local_setup.sh
+[33.933s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/local_setup.zsh
+[33.933s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/local_setup.dsv
+[33.934s] -- Installing: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/package.dsv
+[33.934s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/ament_index/resource_index/packages/mpc_acado
+[33.934s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/cmake/ament_cmake_export_include_directories-extras.cmake
+[33.934s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/cmake/mpc_acadoConfig.cmake
+[33.934s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/cmake/mpc_acadoConfig-version.cmake
+[33.934s] -- Up-to-date: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/share/mpc_acado/package.xml
+[33.934s] -- Installing: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/lib/mpc_acado/code_gen_drone
+[33.935s] -- Set runtime path of "/home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/lib/mpc_acado/code_gen_drone" to ""
+[33.935s] -- Installing: /home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/lib/mpc_acado/mpc_acado_node
+[33.948s] -- Set runtime path of "/home/airlab/test_ws/src/mpc_acado_ros2/install/mpc_acado/lib/mpc_acado/mpc_acado_node" to ""
+[33.951s] Invoked command in '/home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/airlab/drone_control_ws/install/drone_nn_dynamics:/home/airlab/drone_control_ws/install/cl_control:/opt/ros/humble /usr/bin/cmake --install /home/airlab/test_ws/src/mpc_acado_ros2/build/mpc_acado

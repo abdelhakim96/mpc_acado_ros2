@@ -52,6 +52,7 @@ public:
         this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1, 6);
 
         // Arm the vehicle
+        RCLCPP_INFO(this->get_logger(), "Attempting to arm...");
         this->arm();
       }
         
@@ -430,9 +431,9 @@ int main(int argc, char *argv[])
   online_data.distFx = {gp_dist.at(0)};
   online_data.distFy = {gp_dist.at(1)};
   online_data.distFz = {gp_dist.at(2)};
-  ref_trajectory = { 2.0,     // px
+  ref_trajectory = { 5.0,     // px
                       2.0,    // py
-                      2.0,    // pz
+                      3.0,    // pz
                       0.0,    // u
                       0.0,    // v
                       0.0,    // w
